@@ -1,0 +1,1167 @@
+{
+  "papers": {
+    "title-alex g. kim! maximilian muhn? valeri v. nikolaev?": {
+      "source_ids": [
+        "065078cfffa19df6c2ce693a6ab1541b"
+      ],
+      "captions": [
+        "Financial Statement Analysis with Large Language Models (LLMs) A 54-page PDF:"
+      ],
+      "title": "Alex G. Kim! Maximilian Muhn? Valeri V. Nikolaev?",
+      "confidence": "medium"
+    },
+    "SSRN-4849578": {
+      "source_ids": [
+        "1f150a1610b576c05838b6af3d0992b7",
+        "c1662eb4ab20f576551cc6a64fe04f84",
+        "2ee734a0b5edca25ab290380359f022a",
+        "43cc68a186b98b3edc9af82e718fa4df",
+        "927dfa8e2ef3da2953f9a7bd9b05006c",
+        "4f9cac7443d3051a8a3cf4d165b933ce",
+        "61ca7616aab87d87f33934d36d18481c",
+        "b9592b5aa00300b092f944823d472e50",
+        "f921b8d046e83bedd8008a38d143c63b",
+        "0bb0b2461f1e41b695bad5a2d5f44705"
+      ],
+      "captions": [
+        "How to do financial data analysis using ChatGPT A 54-page PDF."
+      ],
+      "id_type": "ssrn",
+      "id_val": "4849578",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4849578"
+    },
+    "title-est virginia university; west virginia university - department of finar": {
+      "source_ids": [
+        "0bb0b2461f1e41b695bad5a2d5f44705"
+      ],
+      "captions": [
+        "How to do financial data analysis using ChatGPT A 54-page PDF."
+      ],
+      "title": "est Virginia University; West Virginia University - Department of Finar",
+      "confidence": "medium"
+    },
+    "known-time series momentum": {
+      "source_ids": [
+        "53122eb3277b57cb8ea823949deea7f6",
+        "1b2b5a7d5eec5f3e8fca7f63aa163c21",
+        "6d9e1f2ecf7aacf1d7f4a8b6244d1adc",
+        "82344d3073f19f4e4059f5d716caf0fe",
+        "b6ded1850f2cf31651be81341d85acc4",
+        "b427fcd95e24a4d1cf3270be6bd8c761",
+        "1e90a40b9334537bcc995f8a517728fe",
+        "5209ec8309109b2dd44666aff5523d7d",
+        "7496f5904b74f51a1df96f116f909172",
+        "1332c9904ef60939345e15bccfba7dd5",
+        "cedee1679234ad2a37009655c8641321",
+        "0cbfd4925f188b1d02e91139a6e38b2a",
+        "16c0686066def651c7661115253eec15",
+        "78633697b9cb32f54c904728f708e4db",
+        "c5190ef6f3726a6782787799756a6a67",
+        "de6e13a1d0ad8295f0400463eb1c1907",
+        "aa25deda68538a6f89fc2ab81f54fc92"
+      ],
+      "captions": [
+        "A 23-page research paper reveals the number 1 method Hedge Funds use to beat the market:",
+        "Time Series Momentum. A 23-page PDF. Here are the best parts:"
+      ],
+      "title": "Time series momentum",
+      "authors": "Tobias J. Moskowitz, Yao Hua Ooi, Lasse Heje Pedersen",
+      "year": "2012"
+    },
+    "title-a quick-start handbook": {
+      "source_ids": [
+        "138ce0f3f6a2ec2f2935d914c69f5dad"
+      ],
+      "captions": [
+        "e Matt Dancho (Business Science) Prompting guide 101 by Google A 68 page PDF:"
+      ],
+      "title": "A quick-start handbook",
+      "confidence": "medium"
+    },
+    "title-learning is used in finance and algorithmic": {
+      "source_ids": [
+        "1488733ffe5fb05bf7a100c936ab1ad5"
+      ],
+      "captions": [
+        "159 page PDF download. The best examples of how machine learning is used in finance and algorithmic"
+      ],
+      "title": "learning is used in finance and algorithmic",
+      "confidence": "medium"
+    },
+    "known-pairs trading": {
+      "source_ids": [
+        "22c042100cbad0159b5fd645e6ece2b9",
+        "ee7ea8ad34eeb16ac1470ba86ab3d979",
+        "97a70eb5a5709e1fecdc2b86ba8ffa65",
+        "3a29f4dcf992de565200d0a9eae0620a",
+        "1550a63b49979475a462c999e151acf3",
+        "a79f0b6d452d175c7ece9512c801ad1e"
+      ],
+      "captions": [
+        "A 47 page PDF explains the secrets of one of the top strategies used by hedge funds: Pairs Trading",
+        "Hedge funds are worried. Stat arb is now available to the masses. Some guy just published the most in-depth",
+        "One of the top strategies used by hedge funds: Pairs Trading"
+      ],
+      "title": "Pairs Trading",
+      "authors": "Evan Gatev, William Goetzmann, K. Geert Rouwenhorst",
+      "year": "2006"
+    },
+    "title-an empirical investigation of factors that drive outperformance in the stock": {
+      "source_ids": [
+        "16a0f5a5f46e704f666917616911cac5"
+      ],
+      "captions": [
+        "Q Quant Science The secret of hedge funds is revealed ina 41-page PDF:"
+      ],
+      "title": "An empirical investigation of factors that drive outperformance in the stock",
+      "confidence": "medium"
+    },
+    "title-i journal of financial economics": {
+      "source_ids": [
+        "1e90a40b9334537bcc995f8a517728fe"
+      ],
+      "captions": [
+        "Time Series Momentum. A 23-page PDF. Here are the best parts:"
+      ],
+      "title": "i Journal of Financial Economics",
+      "confidence": "medium"
+    },
+    "known-151 trading strategies": {
+      "source_ids": [
+        "4fefa1eaf40273e1c25f9a0c6030c48c",
+        "2cec31b9e09f8a489da9b14f3de165f9",
+        "31d02823e1fbd990f85797a18ecec3c8",
+        "6d632345f3327564f5c7067717ff713e"
+      ],
+      "captions": [
+        "This paper unlocks every algorithm used by hedge funds. 151 trading strategies."
+      ],
+      "title": "151 Trading Strategies",
+      "authors": "Zura Kakushadze, Juan Andr\u00e9s Serur",
+      "year": "2018",
+      "id_val": "SSRN-3247865",
+      "id_type": "ssrn",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3247865"
+    },
+    "title-151 trading strategies": {
+      "source_ids": [
+        "2cec31b9e09f8a489da9b14f3de165f9"
+      ],
+      "captions": [
+        "This paper unlocks every algorithm used by hedge funds. 151 trading strategies."
+      ],
+      "title": "151 Trading Strategies",
+      "confidence": "medium"
+    },
+    "title-large language models.": {
+      "source_ids": [
+        "35152e599c8de8d2ee1edf9d4d8d7cb8"
+      ],
+      "captions": [
+        "ee, Matt Dancho (Business Science) @ This 277-page PDF unlocks the secrets of Large Language Models."
+      ],
+      "title": "Large Language Models.",
+      "confidence": "medium"
+    },
+    "title-pairs trading: performance of a relative value arbitrage rule": {
+      "source_ids": [
+        "3a29f4dcf992de565200d0a9eae0620a"
+      ],
+      "captions": [
+        "A 47 page PDF explains the secrets of one of the top strategies used by hedge funds: Pairs Trading"
+      ],
+      "title": "Pairs Trading: Performance of a Relative Value Arbitrage Rule",
+      "confidence": "medium"
+    },
+    "arxiv-2506.10943": {
+      "source_ids": [
+        "48aeff65bb6abeb5fbe12693c8218c09",
+        "c75c5e7e747c474ad50b06ba558abf68",
+        "d115aff64b9574ce27336b6095367211",
+        "c16bb1e2ebc92303eca9cb467fbc7f33"
+      ],
+      "captions": [
+        ">, & Matt Dancho (Business @ Sx Science) @ @mdancho84",
+        "(>, Matt Dancho (Business Science) g 3 @mdancho84 y\u00bb GPT-6 may not just be smarter."
+      ],
+      "id_type": "arxiv",
+      "id_val": "2506.10943",
+      "url": "https://arxiv.org/abs/2506.10943"
+    },
+    "title-ey expert systems with applications a": {
+      "source_ids": [
+        "4b34c2f20c76a2c1b383e05daa44b5a4"
+      ],
+      "captions": [
+        "Machine learning techniques and data for stock market forecasting. (A free 41-page PDF) 4"
+      ],
+      "title": "ey Expert Systems With Applications a",
+      "confidence": "medium"
+    },
+    "title-clustering market regimes using the wasserstein": {
+      "source_ids": [
+        "5575b8784b2b78a19e270e4a76fb1ac2"
+      ],
+      "captions": [
+        "The secret hedge funds use to detect market regimes... A 37 page PDF reveals everything:"
+      ],
+      "title": "CLUSTERING MARKET REGIMES USING THE WASSERSTEIN",
+      "confidence": "medium"
+    },
+    "title-demystifying how hedge funds create bias-": {
+      "source_ids": [
+        "5e75cbd78672ab1668b9f2cfb57a0135"
+      ],
+      "captions": [
+        "& BREAKING: A new 33-page PDF demystifying how hedge funds create bias- free signals"
+      ],
+      "title": "demystifying how hedge funds create bias-",
+      "confidence": "medium"
+    },
+    "title-building cross-sectional": {
+      "source_ids": [
+        "7d9e052672181db88eed20aeb30c7652"
+      ],
+      "captions": [
+        "Building Cross-Sectional Systematic Strategies by Learning to Rank. How to generate alpha using momentum,"
+      ],
+      "title": "Building Cross-Sectional",
+      "confidence": "medium"
+    },
+    "title-of building al agents that are \"agentic\"": {
+      "source_ids": [
+        "8ff8da47ddd868d82fa2e94288e8ddd4"
+      ],
+      "captions": [
+        "\u20ac \u00bb, Matt Dancho (Business Science) @ fe) @mdancho84 The Fundamentals Of Building Autonomous"
+      ],
+      "title": "of building Al agents that are \"agentic\"",
+      "confidence": "medium"
+    },
+    "title-a first look at financial data analysis using chatgpt-": {
+      "source_ids": [
+        "98b21e9aa44b070d502c810b80e1a030"
+      ],
+      "captions": [
+        "Can Al be used for quant financial analysis? A 54-page PDF. A First Look at Financial Data Analysis Using ChatGPT-"
+      ],
+      "title": "A First Look at Financial Data Analysis Using ChatGPT-",
+      "confidence": "medium"
+    },
+    "title-ee technology ( . ) processes": {
+      "source_ids": [
+        "ac1cb2dd2405e4d25ffffee3ec5741c2"
+      ],
+      "captions": [
+        "e&, Matt Dancho (Business Science) @ Ke @mdancho84 & AGENTS COMPANION: A NEW"
+      ],
+      "title": "ee Technology ( . ) Processes",
+      "confidence": "medium"
+    },
+    "title-re technology ( - ) processes": {
+      "source_ids": [
+        "b34accc569a4d402e22653b0d9a7a2e4"
+      ],
+      "captions": [
+        "e&, Matt Dancho (Business Science) @ Ke @mdancho84 & AGENTS COMPANION: A NEW"
+      ],
+      "title": "re Technology ( - ) Processes",
+      "confidence": "medium"
+    },
+    "title-5 paperbanana: automating academic": {
+      "source_ids": [
+        "bb9fb0fd28dfbe87e5164604cca3de74"
+      ],
+      "captions": [
+        "eS Matt Dancho (Business Science) @ Ry) @mdancho84 SEBREAKING: Google just dropped a new"
+      ],
+      "title": "5 PapERBANANA: Automating Academic",
+      "confidence": "medium"
+    },
+    "title-re icy | technology | : ) processes": {
+      "source_ids": [
+        "d6d670c7ffe569dc2b4eba3258afb16d"
+      ],
+      "captions": [
+        ">, & Matt Dancho (Business @ & J Science) @ . @mdancho84"
+      ],
+      "title": "re icy | Technology | : ) Processes",
+      "confidence": "medium"
+    },
+    "title-the review of financial studies sas.)": {
+      "source_ids": [
+        "d710ad554b817bfd3bab87806e30ebb5"
+      ],
+      "captions": [
+        "Empirical Asset Pricing via Machine Learning A 51-page PDF."
+      ],
+      "title": "The Review of Financial Studies SAS.)",
+      "confidence": "medium"
+    },
+    "title-a practical guide to quantitative volatility": {
+      "source_ids": [
+        "f47b912958a34983cf436d7cc01508a1"
+      ],
+      "captions": [
+        "Jane Street, AQR, Ren Tech... All use volatility. Retail was locked out... until now."
+      ],
+      "title": "A Practical Guide to Quantitative Volatility",
+      "confidence": "medium"
+    }
+  },
+  "repos": {
+    "gh-openbb-finance/openbbterminal": {
+      "source_ids": [
+        "30b7b7ea643461d758b50e9d3d2589bc",
+        "8ae934816ada36e6fee51dabeaf0907f",
+        "306aa063fb6b4e3abbe4f63f8e575861",
+        "e91d752fe31eddd830cb30c067d7fb44",
+        "4e9b52e406486dbc04836066c694e7ae",
+        "651e11a4e89977617d6a7912bcda5c84",
+        "9fe10f5f48b47e0446b67cdea8614001",
+        "06f24244d4ded0a3a1dbfabd3c6ff541",
+        "03c39ac3338f97b0355fec0930c753b3",
+        "f82489af0c7cd7da568f7b253784d9f1",
+        "b62944a652f87a6dd4167708a36a389f",
+        "32dc87475e8b2f09df157103b4edf69b",
+        "314592d2e5ee0f62f5c90d70b376cab7",
+        "306bdbd9ba23fe152a3a1b7701047117",
+        "dddac9c2998017537879caa0e9278252",
+        "f6d73f247a99146822e2682bcf3cbaa7",
+        "3ef1ccf1cfb72d95fa07480da6d92399",
+        "45e6825b5e3fc793348205a89f16c076",
+        "5ba6d15448e15b5eec47c80730bb1643",
+        "c3ee42a4cd0b017a7692151d554f4d8e",
+        "87d3b158ae980b2513d9c08daceccd9b",
+        "b9580ad9c63d1948846b671ff192cf7d",
+        "a9dac3cab2c9ba6f769eaae1be65055e",
+        "cba867a2a517df8d5e6ee253ab000302",
+        "963432bd29cbb48a3ff70db8d0b56524",
+        "c79a19c2bced37a1ad79ea67222b8505",
+        "6610ade39b83812a5586871bc43351db",
+        "f0f799b85400cea4423bdd1aff76832e",
+        "74986ad04fce56514ae5313eeeadb253",
+        "4f5d6029221b10ad82808e1f637c64f3",
+        "a5aaefae1e82a344606d8099878ff5c2",
+        "f99cdd9fb0debc9565da09b4bbe5ff32",
+        "0ce44cc8cf6547a79848a226ffc04186",
+        "e3c4c6a300a75ab3824b895f4c669d6e",
+        "08b885c60fad38c9d6456bb4d767dbd8",
+        "7583fc2fb8060d8039e978889a98a559",
+        "7d9177c9373a13bbb27afde7aee56075",
+        "3853eed514ff3a10d1a3225eb0e8e72e",
+        "828f8d4d6d6af7d8887ad6cb3bbcfc2b",
+        "766dcc977a74d5de8138b31861d10c86",
+        "a894510b5d9b57015d200b3a46dc1c87",
+        "61c45097419ebb18a9d60c5e5e062209",
+        "383d568db18c5706f1a786caa758b0ee",
+        "870f01756faf0c82ce2a409612ad38ec",
+        "653f428a41c306a028a3c86aa3c26eee",
+        "3076c858df1c6cb9f156cbda0f500c89",
+        "39fc21bb0984998177dbd58316907150",
+        "3aca5bbb595eb6cd9d40926e9bd8afe2",
+        "18aa68c5cfc6b35c0c97b978476f17a2",
+        "3c2c7935d4560debc300cebfc8d6ab7a",
+        "00f1567b292cf9aa4885420a3a67dae7",
+        "4d0d28d34617498dc9b3b9cb8b647356",
+        "592b4e15372ce5468c9cafe53adcf70d",
+        "6eb6d4b81e9d227c86a02e3ee8374d53",
+        "814113d9b0dbd3bad05d20c06fe99467",
+        "1f0d01deaf6b76b7d736fb503fc03c25",
+        "dbce13e6e7a80112fc481f1987c8fe57",
+        "f2450cc2daa280126952b74b45fc2af7",
+        "aa9ac6503630cd9ba2d72b69a3060c8b",
+        "cd2122e6034b4c651be06bbd42a7ad2d",
+        "fd001b400b916274cbfd111d3ec23d53",
+        "e6bb6f2e1a4f23665c984d0ab006d433",
+        "0b05bf541b060f1b8cc5b161490761b9",
+        "332963a20175e0e4d7b26922a25e6e4a",
+        "081f72c7ed85426f1e72dc5b565b6ddd",
+        "303c5cb48c4929d085bc1795e3c76451",
+        "4f42f5a73eebe76e704ddebee7bdea7d",
+        "639339acc38c79616e7a4dbf3d55c783",
+        "9962894795c9e5f6f732eb92540d8990",
+        "595f919e7937de9777d51e8a8f4a478b",
+        "062a14b149b91d35615eb7149582cba3",
+        "525d7b0e2d66780359142634bf76b326"
+      ],
+      "captions": [
+        "Why Python is insane for algorithmic trading: 1. Visualization: Plotly ($0)",
+        "Why every algorithmic trader needs to know Python: 1. Visualization: Plotly ($0)",
+        "quant-trader-with-python fwmomons |S gpenes | OPEN\u00aeBSB"
+      ],
+      "github_url": "https://github.com/OpenBB-finance/OpenBBTerminal",
+      "name": "OpenBBTerminal",
+      "confidence": "medium"
+    },
+    "gh-jpmorganchase/python-": {
+      "source_ids": [
+        "b2a860d6c65e3573591361b2782c7ed3",
+        "0e6912b7b2df22d9b4a87175a713c490",
+        "2256d11464c216475673c91104f68175",
+        "9a667f34994330d9ff09e4f856403323",
+        "055fa891f9b6539d69136b07de839b70",
+        "2b8f14e36d22451200f6e0f1e83408a6",
+        "e82bd48e7a79b9dc260530c6a3646b2d",
+        "f59652847559fb8690fc2a8054506308",
+        "4e40e1af2e56c9acae31daca51a884bb",
+        "c4d09413e4946ff0188698dd38a9e8eb",
+        "f434fcd099bb64931ef1d5c31cbc0299",
+        "152ea6b5d630263f989adb5e6ab9a045",
+        "53514b8a2867d04dd2a01ef478e6dd0d",
+        "02979c70d3c5cbc253bce25aae890614",
+        "4cded0dff7bd7f62d1e8bddd83544662",
+        "9d0eca3ace58fb9bd373c35b74f5b1b5",
+        "6b043d2aebd47afc39a0f26d9898d520",
+        "85d285c8dd90527395381e4e8c6a206a",
+        "b2df0f1c5b9664c971e3dd841aa989ad",
+        "bbe547ce77e75152c3e4dcee7e48a792",
+        "313f91253e4fdb8c1cfe8fae9b8b902c",
+        "609161cf9c0b9e943b32c11023dfc47d"
+      ],
+      "captions": [
+        "JP Morgan's Python training. Available 100% for free: jpmorganchase/python- O_"
+      ],
+      "github_url": "https://github.com/jpmorganchase/python-",
+      "name": "python-",
+      "confidence": "medium"
+    },
+    "gh-tensortrade-org/tensortrade": {
+      "source_ids": [
+        "7d362653ac7ef642ca5b672f5c0b6e3d",
+        "0c157f0a740bbfd1175dee4956595a8d",
+        "126b0ece27bc12e09a2a7e56c680fc9a",
+        "99f981ad41772dbd7785a5318f237bcd",
+        "da2a9aa5e466f38ca737bdf0c2431fe4",
+        "0e46d2ba5e31c7ed7f77b9d68e2df1a0",
+        "774bfc3957a4be5e6d6de225dab877ec",
+        "abe1632a67626618e7e33da58241c359",
+        "85782768868bbd408cffc25c073c7a7e",
+        "c597438b64b20247023350588c4fdb8b",
+        "03aba6ec8a5218e8166ac49d06ffa173",
+        "347ca375c2440ecf1ec9129d0b12e4dd",
+        "900ac89e44fc781aadf951f22a9b24e9",
+        "4c8775c57c3addd576a911692ae0edce",
+        "8b5f60a3cd7ed2942b45b51e09a88333",
+        "89ad07dc7483042c71bc5ee719b72913",
+        "263e1ac84a87d75a9c0f7495fcf2a28d",
+        "2971d9e453eff3bc505f0ea470d1313e",
+        "e8e805d1649e0268df68d334b583f627"
+      ],
+      "captions": [
+        "ESBREAKING: A new Python library for algorithmic trading. Introducing TensorTrade: An open-source"
+      ],
+      "github_url": "https://github.com/tensortrade-org/tensortrade",
+      "name": "tensortrade",
+      "confidence": "medium"
+    },
+    "gh-dcajasn/riskfolio-lib": {
+      "source_ids": [
+        "b460a02f85364d4c70642ee97536bea4",
+        "2b100ee766786d62f42d7c875134a3a9",
+        "cea89e2dfa5235666b79933a26dea8fa",
+        "676be25159c35399ed059ae112a418d6",
+        "6e0edaefbab6f3ab90d51b1a4e85fa7f",
+        "6293845a604fec8c9f16d3fe46680b5a",
+        "8f153ee94da09d858d8e66194a3fbf12",
+        "f64f75762644cf04b3345df8f313197a",
+        "99fad8452cf7442bdf0ebd5b462333dd",
+        "c374d4e0a29b06535bc3009427217a00",
+        "08a1a73f1da55800eda8ef2cf213a542",
+        "82dab6a15b18c9f6f15017894c90b2e2",
+        "06f24244d4ded0a3a1dbfabd3c6ff541",
+        "3ba56a499e4243cbf01dbe71702fc799",
+        "f2eab84d11e63aa42c9a16a63f73e25e",
+        "d828b817a8c47a17075f2cc4cf1f20c7"
+      ],
+      "captions": [
+        "Python is wild for finance. Let's take an example: riskfolio-lib A thread =",
+        "Q Quant Science 7 small steps to start with algorithmic trading:",
+        "Quant Science @ 7 small steps to start with algorithmic trading:"
+      ],
+      "github_url": "https://github.com/dcajasn/Riskfolio-Lib",
+      "name": "Riskfolio-Lib",
+      "confidence": "medium"
+    },
+    "gh-ranaroussi/quantstats": {
+      "source_ids": [
+        "06f24244d4ded0a3a1dbfabd3c6ff541",
+        "5473093dcc523193f9758859214acad3"
+      ],
+      "captions": [
+        "45 free Python tutorials (you can copy and paste) for algorithmic trading. All free on GitHub:",
+        "FREE: Download Python code for algorithmic trading, portfolio analysis, and investing."
+      ],
+      "github_url": "https://github.com/ranaroussi/quantstats",
+      "name": "quantstats",
+      "confidence": "medium"
+    },
+    "gh-freqtrade/freqtrade": {
+      "source_ids": [
+        "1735fc08b8dcb12b8d5fff9188299e4d",
+        "07f385271334bda674f49f5fc78a9e03",
+        "dc1245ee8723ca13116c07e52345dd44"
+      ],
+      "captions": [
+        "343+ Quant and Algorithmic Trading Projects in Python This is how to get your hands on them for"
+      ],
+      "github_url": "https://github.com/freqtrade/freqtrade",
+      "name": "freqtrade",
+      "confidence": "medium"
+    },
+    "gh-lballabio/quantlib": {
+      "source_ids": [
+        "4f5d6029221b10ad82808e1f637c64f3",
+        "9db6f3ebbe10b9503af70bd8467e30df",
+        "081f72c7ed85426f1e72dc5b565b6ddd"
+      ],
+      "captions": [
+        "The math behind the Quant Scientist Stack: \u00a2 SciPy: $0 \u00a2 Zipline: $0",
+        "The 5 things you need to start algo trading: 1. One trading idea 2. A $500 computer",
+        "The math behind the Quant Scientist Python Stack: \u00a2 SciPy: $0"
+      ],
+      "github_url": "https://github.com/lballabio/QuantLib",
+      "name": "QuantLib",
+      "confidence": "medium"
+    },
+    "gh-polakowo/vectorbt": {
+      "source_ids": [
+        "2b100ee766786d62f42d7c875134a3a9",
+        "cea89e2dfa5235666b79933a26dea8fa",
+        "676be25159c35399ed059ae112a418d6",
+        "6e0edaefbab6f3ab90d51b1a4e85fa7f",
+        "6293845a604fec8c9f16d3fe46680b5a",
+        "8f153ee94da09d858d8e66194a3fbf12",
+        "f64f75762644cf04b3345df8f313197a",
+        "c374d4e0a29b06535bc3009427217a00",
+        "08a1a73f1da55800eda8ef2cf213a542",
+        "82dab6a15b18c9f6f15017894c90b2e2",
+        "3ba56a499e4243cbf01dbe71702fc799",
+        "f2eab84d11e63aa42c9a16a63f73e25e",
+        "d828b817a8c47a17075f2cc4cf1f20c7"
+      ],
+      "captions": [
+        "Q Quant Science 7 small steps to start with algorithmic trading:",
+        "Quant Science 7 small steps to start with algorithmic trading:",
+        "7 small steps to start with algorithmic trading: 1. Start with Python"
+      ],
+      "github_url": "https://github.com/polakowo/vectorbt",
+      "name": "vectorbt",
+      "confidence": "medium"
+    },
+    "gh-tesks/tode-nd": {
+      "source_ids": [
+        "0b3d6ce0531536d92003292de0c6287b"
+      ],
+      "captions": [
+        "f Matt Dancho (Business Science) @ @mdancho84 Becoming a 10X engineer ain't what it used"
+      ],
+      "github_url": "https://github.com/tesks/tode-nd",
+      "name": "tode-nd",
+      "confidence": "medium"
+    },
+    "gh-auto-analyst/auto-analyst": {
+      "source_ids": [
+        "0cd72c779e07735a5f0ae374e225afa7"
+      ],
+      "captions": [
+        "ee, Matt Dancho (Business Science) @ Sy @mdancho84 Someone just open-sourced an Al that"
+      ],
+      "github_url": "https://github.com/Auto-Analyst/Auto-Analyst",
+      "name": "Auto-Analyst",
+      "confidence": "medium"
+    },
+    "gh-forecasting/alpha": {
+      "source_ids": [
+        "1a5214bc8ab5db797d1369a73836b2a5"
+      ],
+      "captions": [
+        "Python is insane for algorithmic trading. Example: Microsoft open-sourced this Al n 9"
+      ],
+      "github_url": "https://github.com/Forecasting/Alpha",
+      "name": "Alpha",
+      "confidence": "medium"
+    },
+    "gh-erdewit/ib_insync": {
+      "source_ids": [
+        "1aa29f9dc06fac2665bb63c8d3e01615"
+      ],
+      "captions": [
+        "Every trader should use an algorithmic trading process. '"
+      ],
+      "github_url": "https://github.com/erdewit/ib_insync",
+      "name": "ib_insync",
+      "confidence": "medium"
+    },
+    "gh-ranaroussi/yfinance": {
+      "source_ids": [
+        "1aa29f9dc06fac2665bb63c8d3e01615"
+      ],
+      "captions": [
+        "Every trader should use an algorithmic trading process. '"
+      ],
+      "github_url": "https://github.com/ranaroussi/yfinance",
+      "name": "yfinance",
+      "confidence": "medium"
+    },
+    "gh-business-science/pytimetk": {
+      "source_ids": [
+        "9888fe50e9296a02e0bf783fdf543d01",
+        "5473093dcc523193f9758859214acad3",
+        "49b4230d86653bbc9042e9dca39153d3",
+        "2056251deadf9acb4f3b186a0cf6204e"
+      ],
+      "captions": [
+        "This Python library is wild for financial analysis. It's called Pytimetk.",
+        "45 free Python tutorials (you can copy and paste) for algorithmic trading. All free on GitHub:",
+        "Introducing PyTimetk for finance and time series in Python. Discover how to speed up common time"
+      ],
+      "github_url": "https://github.com/business-science/pytimetk",
+      "name": "pytimetk",
+      "confidence": "medium"
+    },
+    "gh-features/properties": {
+      "source_ids": [
+        "2056251deadf9acb4f3b186a0cf6204e"
+      ],
+      "captions": [
+        "Quant Science The most common data type in finance? Time series."
+      ],
+      "github_url": "https://github.com/Features/Properties",
+      "name": "Properties",
+      "confidence": "medium"
+    },
+    "gh-llm/rag": {
+      "source_ids": [
+        "4a3fef9be5c02c641b44f6f418b6a123",
+        "8ea336b092fe987d550cb0e87f0e4a22",
+        "8f9a2acf98321f5a46ebd3b01a8939f7",
+        "e1b8bb68ac1ff05e75f8fed7665a5a30",
+        "5e46d2284ae31d41c5be94127fcfeef5",
+        "28e5788c4b18acb99c6679cb57a808a6",
+        "fd4d9377c4a60e074fe993d6702e4de0",
+        "7d4425921effaa66bebade95a3708853",
+        "b26a629f4935a2a41d9945ef438b72ac"
+      ],
+      "captions": [
+        "(@>, & Matt Dancho (Business 2 _y Science) @ @mdancho84",
+        "(@>, Matt Dancho (Business Science) @ A @mdancho84 The 5-part path to a $200k Al DS career:",
+        "(\u00a9, Matt Dancho (Business Science) @ A) @mdancho84 The 5-part path to a $200k Al DS career:"
+      ],
+      "github_url": "https://github.com/LLM/RAG",
+      "name": "RAG",
+      "confidence": "medium"
+    },
+    "gh-julius-ai/julius": {
+      "source_ids": [
+        "bc7bdd5e1976e13bd1e3938c24448ad4",
+        "332f999e1379ae59d415352414d9f288"
+      ],
+      "captions": [
+        "i=\" \u2019 Matt Dancho (Business Science) hy @mdancho84 RIP Tableau and PowerBIl.",
+        "e, @ Matt Dancho (Business _j Science) @mdancho84"
+      ],
+      "github_url": "https://github.com/julius-ai/julius",
+      "name": "julius",
+      "confidence": "medium"
+    },
+    "gh-openbb-finance/openbb-agents": {
+      "source_ids": [
+        "3ef1ccf1cfb72d95fa07480da6d92399",
+        "8ae934816ada36e6fee51dabeaf0907f",
+        "c3ee42a4cd0b017a7692151d554f4d8e",
+        "6610ade39b83812a5586871bc43351db",
+        "3aca5bbb595eb6cd9d40926e9bd8afe2",
+        "3c2c7935d4560debc300cebfc8d6ab7a",
+        "4e9b52e406486dbc04836066c694e7ae"
+      ],
+      "captions": [
+        "SBBREAKING: New Python Library for Finance Analysis with Al Agents Here's a 30-second overview (+ Python",
+        "& BREAKING: New Python Library for Finance Analysis with Al Agents Here's a 30-second overview (+ Python",
+        "BREAKING: New Python Library for Finance Analysis with Al Agents Here's a 30-second overview (+ Python"
+      ],
+      "github_url": "https://github.com/OpenBB-finance/openbb-agents",
+      "name": "openbb-agents",
+      "confidence": "medium"
+    },
+    "gh-ds4sd/docling": {
+      "source_ids": [
+        "3b0d8f4ad56bf6c4afb7ced78dcc7a59",
+        "5d13abbbb683ed53e6da8d08fada0e3f",
+        "6ead3c265f82735640dfc39d10a70799"
+      ],
+      "captions": [
+        "e, @ Matt Dancho (Business @ Se Science) @mdancho84",
+        "i, <I Matt Dancho (Business Science) @ s @mdancho84 & BREAKING: IBM launches a free Python"
+      ],
+      "github_url": "https://github.com/DS4SD/docling",
+      "name": "docling",
+      "confidence": "medium"
+    },
+    "gh-entry/exit": {
+      "source_ids": [
+        "4fe7d9cfe1df37519920f53c0ec40096"
+      ],
+      "captions": [
+        "How to build your own algorithmic trading analyzer with Claude Code. (bookmark this for later)"
+      ],
+      "github_url": "https://github.com/entry/exit",
+      "name": "exit",
+      "confidence": "medium"
+    },
+    "gh-win/loss": {
+      "source_ids": [
+        "4fe7d9cfe1df37519920f53c0ec40096"
+      ],
+      "captions": [
+        "How to build your own algorithmic trading analyzer with Claude Code. (bookmark this for later)"
+      ],
+      "github_url": "https://github.com/win/loss",
+      "name": "loss",
+      "confidence": "medium"
+    },
+    "gh-orecasting/alpha": {
+      "source_ids": [
+        "ba776ac0200dbc8358d6068bbb1e71dc",
+        "92cefd348b02dbb203274fbebad02a8c",
+        "580e4b183c2ca2f8e6efac7e61ad4121"
+      ],
+      "captions": [
+        "Python is insane for algorithmic trading. Example: Microsoft open-sourced this Al ni 9",
+        "Python is insane for algorithmic trading. Example: Microsoft open-sourced this Al n 9"
+      ],
+      "github_url": "https://github.com/orecasting/Alpha",
+      "name": "Alpha",
+      "confidence": "medium"
+    },
+    "gh-microsoft/rd-agent": {
+      "source_ids": [
+        "b3380fec70fb11bf0047e6f6b6d21c3b",
+        "5ed75e5910c63ffd1d37d950ff276361",
+        "f0f440b2d3d3054a3a2765a7b500e37d",
+        "e18d2781792f773ae62297c691199ea8",
+        "f76b9e2099134a5bf2a7dfd761f24f40",
+        "804b54c578961d23aca82ad6b0394ac2"
+      ],
+      "captions": [
+        "Quant Science SSBREAKING: Microsoft open-sourced an Al Quant investment platform in Python",
+        "Quant Science @ SSBREAKING: Microsoft open-sourced an Al Quant investment platform in Python"
+      ],
+      "github_url": "https://github.com/microsoft/RD-Agent",
+      "name": "RD-Agent",
+      "confidence": "medium"
+    },
+    "gh-business/financial": {
+      "source_ids": [
+        "61c0b98a4ece0a43eec442bca2f65177"
+      ],
+      "captions": [
+        "This guy just made an Al agent for financial research. Then gave away the code for free."
+      ],
+      "github_url": "https://github.com/Business/financial",
+      "name": "financial",
+      "confidence": "medium"
+    },
+    "gh-wsea/for": {
+      "source_ids": [
+        "66305f3de7ba4640a0e81cfc2925af90"
+      ],
+      "captions": [
+        "Matt Dancho (Business Science) @ @mdancho84 Becoming a 10X engineer ain't what it used"
+      ],
+      "github_url": "https://github.com/wsea/for",
+      "name": "for",
+      "confidence": "medium"
+    },
+    "gh-tasks/todo-ad": {
+      "source_ids": [
+        "66305f3de7ba4640a0e81cfc2925af90"
+      ],
+      "captions": [
+        "Matt Dancho (Business Science) @ @mdancho84 Becoming a 10X engineer ain't what it used"
+      ],
+      "github_url": "https://github.com/tasks/todo-ad",
+      "name": "todo-ad",
+      "confidence": "medium"
+    },
+    "gh-stanfordnlp/dspy": {
+      "source_ids": [
+        "76ef11b0a9e3beaa2f4218154a76d87b",
+        "a9124bcf8bed3f35f9442acb821d49ee"
+      ],
+      "captions": [
+        "\u2018@>, Matt Dancho (Business Science) @ @mdancho84 Stop Prompting LLMs.",
+        "e, & Matt Dancho (Business @ J Science) @ @mdancho84"
+      ],
+      "github_url": "https://github.com/stanfordnlp/dspy",
+      "name": "dspy",
+      "confidence": "medium"
+    },
+    "gh-downloads/month": {
+      "source_ids": [
+        "7aae061e9a4e4a491bcf5d0302ce5e65"
+      ],
+      "captions": [
+        "Finance Database 300,000+ symbols containing Equities, ETFs, Funds, Indices, Currencies,"
+      ],
+      "github_url": "https://github.com/downloads/month",
+      "name": "month",
+      "confidence": "medium"
+    },
+    "gh-pandas/polars": {
+      "source_ids": [
+        "7eafa9dcd7e29647268ef5abf98015fc"
+      ],
+      "captions": [
+        "e, @ Matt Dancho (Business J Science) @ @mdancho84"
+      ],
+      "github_url": "https://github.com/Pandas/Polars",
+      "name": "Polars",
+      "confidence": "medium"
+    },
+    "gh-ai4finance-foundation/finrl": {
+      "source_ids": [
+        "81fa631411b529bb7e66de8c5b324b25",
+        "d5af84648b1ef53ba2ea94915f9d85fb"
+      ],
+      "captions": [
+        "Reinforcement Learning ' . Let's explore: \u00a9",
+        "FinRL: A python package for Financial Reinforcement Learning Let's explore:"
+      ],
+      "github_url": "https://github.com/AI4Finance-Foundation/FinRL",
+      "name": "FinRL",
+      "confidence": "medium"
+    },
+    "gh-downloads/week": {
+      "source_ids": [
+        "81fa631411b529bb7e66de8c5b324b25",
+        "d5af84648b1ef53ba2ea94915f9d85fb"
+      ],
+      "captions": [
+        "Reinforcement Learning ' . Let's explore: \u00a9",
+        "FinRL: A python package for Financial Reinforcement Learning Let's explore:"
+      ],
+      "github_url": "https://github.com/downloads/week",
+      "name": "week",
+      "confidence": "medium"
+    },
+    "gh-orecasting/aipha": {
+      "source_ids": [
+        "82923a071bcfd150066e5c4b927fa11c"
+      ],
+      "captions": [
+        "Python is insane for algorithmic trading. Example: Microsoft open-sourced this Al n 9"
+      ],
+      "github_url": "https://github.com/orecasting/Aipha",
+      "name": "Aipha",
+      "confidence": "medium"
+    },
+    "gh-forecaating/aiph": {
+      "source_ids": [
+        "82923a071bcfd150066e5c4b927fa11c",
+        "ba776ac0200dbc8358d6068bbb1e71dc"
+      ],
+      "captions": [
+        "Python is insane for algorithmic trading. Example: Microsoft open-sourced this Al n 9"
+      ],
+      "github_url": "https://github.com/Forecaating/Aiph",
+      "name": "Aiph",
+      "confidence": "medium"
+    },
+    "gh-btc/oup": {
+      "source_ids": [
+        "994cbaaecf34d887dd83c679274c19b1",
+        "84f42b7372328a4d3611af5725c82ae6"
+      ],
+      "captions": [
+        "Crypto trading bot with backtesting and machine learning in Python Get it here for free:"
+      ],
+      "github_url": "https://github.com/BTC/OUP",
+      "name": "OUP",
+      "confidence": "medium"
+    },
+    "gh-goldmansachs/gs-quant": {
+      "source_ids": [
+        "a1a062b604da75df98d70d56f12e9a3f",
+        "9264693e3c648aa4358d443590963b48",
+        "9ebfaa84ad54ac482a0f4d5a1a851d33"
+      ],
+      "captions": [
+        "coe OEE + Eg | \u20ac > G _& gitrwo.comypoldmansachs/gs-quantjtreeymaster Ger BOOS FHR*O Bb: =) QO), cotianschs | gs-cunt @ ype Hit searen + On \u00ae",
+        "& Introducing Goldman Sachs GS-Quant A Python quant toolkit made by Goldman Sachs.",
+        "\u00a9 \u00a9 \u00a9 \u2014 Q goldmansachs/gs-quant: Py x + v | a) (SSS == Gr OOS FmmRe Oo B: :"
+      ],
+      "github_url": "https://github.com/goldmansachs/gs-quant",
+      "name": "gs-quant",
+      "confidence": "medium"
+    },
+    "gh-month/line": {
+      "source_ids": [
+        "97eadb5b9ba26f85b34d0ff73d470f3c"
+      ],
+      "captions": [
+        "The 2025 algorithmic trading survival pack: e Python $0 e Interactive Brokers API $0"
+      ],
+      "github_url": "https://github.com/Month/Line",
+      "name": "Line",
+      "confidence": "medium"
+    },
+    "gh-igoldmansachsigs-quantree/master": {
+      "source_ids": [
+        "a1a062b604da75df98d70d56f12e9a3f"
+      ],
+      "captions": [
+        "& Introducing Goldman Sachs GS-Quant A Python quant toolkit made by Goldman Sachs."
+      ],
+      "github_url": "https://github.com/igoldmansachsigs-quantree/master",
+      "name": "master",
+      "confidence": "high"
+    },
+    "gh-quantopian/alphalens": {
+      "source_ids": [
+        "eb11a3c540298f70f9222c30841585c3",
+        "f536644887d7132633da19f8bc57589f"
+      ],
+      "captions": [
+        "Why Python is amazing for finance (and algorithmic trading). | just ripped through a simple factor",
+        "Python is amazing for finance (and algorithmic trading). | just ripped through a simple factor analysis in"
+      ],
+      "github_url": "https://github.com/quantopian/alphalens",
+      "name": "alphalens",
+      "confidence": "medium"
+    },
+    "gh-min/day": {
+      "source_ids": [
+        "f79a6474d70de4d911b844290c137658"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @mdancho84 A $200k Al DS career is just compounding"
+      ],
+      "github_url": "https://github.com/min/day",
+      "name": "day",
+      "confidence": "medium"
+    },
+    "gh-dataset/month": {
+      "source_ids": [
+        "f79a6474d70de4d911b844290c137658"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @mdancho84 A $200k Al DS career is just compounding"
+      ],
+      "github_url": "https://github.com/dataset/month",
+      "name": "month",
+      "confidence": "medium"
+    },
+    "gh-app/quarter": {
+      "source_ids": [
+        "f79a6474d70de4d911b844290c137658"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @mdancho84 A $200k Al DS career is just compounding"
+      ],
+      "github_url": "https://github.com/app/quarter",
+      "name": "quarter",
+      "confidence": "medium"
+    },
+    "gh-jackfrued/python-100-days": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/jackfrued/Python-100-Days",
+      "name": "Python-100-Days",
+      "confidence": "medium"
+    },
+    "gh-microsoft/generative-ai-for": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/microsoft/generative-ai-for",
+      "name": "generative-ai-for",
+      "confidence": "medium"
+    },
+    "gh-rasbt/llms-f": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/rasbt/LLMs-f",
+      "name": "LLMs-f",
+      "confidence": "medium"
+    },
+    "gh-microsoft/ml-for": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/microsoft/ML-For",
+      "name": "ML-For",
+      "confidence": "medium"
+    },
+    "gh-compvis/stable-diffusion": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/CompVis/stable-diffusion",
+      "name": "stable-diffusion",
+      "confidence": "medium"
+    },
+    "gh-openai/openai-cookbook": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/openai/openai-cookbook",
+      "name": "openai-cookbook",
+      "confidence": "medium"
+    },
+    "gh-facebookresearch/segment-anything": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/facebookresearch/segment-anything",
+      "name": "segment-anything",
+      "confidence": "medium"
+    },
+    "gh-jakevdp/pythondatasciencehandbook": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/jakevdp/PythonDataScienceHandbook",
+      "name": "PythonDataScienceHandbook",
+      "confidence": "medium"
+    },
+    "gh-gokumohandas/made": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/GokuMohandas/Made",
+      "name": "Made",
+      "confidence": "medium"
+    },
+    "gh-microsoft/ai-for-beginners": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/microsoft/AI-For-Beginners",
+      "name": "AI-For-Beginners",
+      "confidence": "medium"
+    },
+    "gh-aymericdamien/tensorf": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/aymericdamien/TensorF",
+      "name": "TensorF",
+      "confidence": "medium"
+    },
+    "gh-suno-ai/bark": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/suno-ai/bark",
+      "name": "bark",
+      "confidence": "medium"
+    },
+    "gh-google-research/google-research": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/google-research/google-research",
+      "name": "google-research",
+      "confidence": "medium"
+    },
+    "gh-datatalksclub/data": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/DataTalksClub/data",
+      "name": "data",
+      "confidence": "medium"
+    },
+    "gh-microsoft/data-science-for-beginners": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/microsoft/Data-Science-For-Beginners",
+      "name": "Data-Science-For-Beginners",
+      "confidence": "medium"
+    },
+    "gh-openai/clip": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/openai/CLIP",
+      "name": "CLIP",
+      "confidence": "medium"
+    },
+    "gh-anthropics/claude-cookbooks": {
+      "source_ids": [
+        "fd0e64e0f9d06230aad6df0920fb6147"
+      ],
+      "captions": [
+        ">, Matt Dancho (Business Science) @ ae &/ @mdancho84"
+      ],
+      "github_url": "https://github.com/anthropics/claude-cookbooks",
+      "name": "claude-cookbooks",
+      "confidence": "medium"
+    }
+  },
+  "hook_posts": [
+    "21b9325ee701ce3717bb6fb10da63e12",
+    "316342604e00869468fe9349c5ddabb4",
+    "482e687ebc9cea17e9352e3c28994702",
+    "54267c86c7e3119cbf2af7ec4926b66f",
+    "9218883f9aa56155ac6838b333255836",
+    "9389c7ebce07650fae8175ce743ca9a2",
+    "a364dd76e57fb13e3f62d1d72c0e5a7a",
+    "aa63b67c223bb7f89bb780c870d82d13",
+    "af63d2f85bc93e2acbf22896d08b10fb",
+    "b444cdbcdc7c6f0ea307f937e8883533",
+    "dec022785a053d410b7e8e03fab50173"
+  ]
+}

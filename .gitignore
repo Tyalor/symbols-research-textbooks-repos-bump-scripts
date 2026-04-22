@@ -1,0 +1,14 @@
+# Large binary artifacts
+igimgs/
+ocr_txt/
+*.har
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
