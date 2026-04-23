@@ -7,11 +7,13 @@ Quant finance resource index — papers, repos, whitepapers, blogs — aggregate
 | Path | Purpose |
 |---|---|
 | `index_builder.py` | Pipeline: 5-tier scraper, dedupe, writers |
-| `data/quant_index.json` | **2384 unique resources** — source of truth |
+| `data/quant_index.json` | **2783 unique resources** — source of truth |
 | `data/quant_index.xlsx` | Same data, Excel view with 7 sheets (All_Deduped + per-source) |
 | `docs/INDEX_SUMMARY.md` | Per-source row counts, date ranges, known gaps |
 | `docs/AUDIT_PROMPTS.md` | 9 fresh-chat verification prompts |
 | `docs/COST_BREAKDOWN.md` | Two-part cost ref: (1) scaling this index, (2) R2 + Neon pricing for Symbols Terminal |
+| `docs/DATA_COLLECTION.md` | On-demand RAG-style retrieval — 5 layers, need-to-know access |
+| `docs/DOMAIN_EXPANSION.md` | Growing the index 10× via OpenAlex + citation graph + new modalities |
 | `docs/EQUITY_REPORTS_PLAN.md` | Plan for collecting SEC filings + earnings/IR content |
 | `docs/TEXTBOOKS.md` | Curated canonical quant textbooks not in the index |
 | `docs/EXTRACTION_NOTES.md` | Notes on the original HAR extraction pass |
