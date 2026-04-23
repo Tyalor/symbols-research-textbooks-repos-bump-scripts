@@ -36,9 +36,9 @@ from openpyxl.utils import get_column_letter
 # CONFIG — flip sources on/off for partial runs
 # ---------------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parent
-SEED_XLSX = ROOT / "data" / "quantscience_findings.xlsx"
-OUT_JSON = ROOT / "quant_index.json"
-OUT_XLSX = ROOT / "quant_index.xlsx"
+SEED_XLSX = ROOT / "legacy" / "quantscience_findings.xlsx"
+OUT_JSON = ROOT / "data" / "quant_index.json"
+OUT_XLSX = ROOT / "data" / "quant_index.xlsx"
 OUT_SUMMARY = ROOT / "docs" / "INDEX_SUMMARY.md"
 
 RUN = {
@@ -962,10 +962,16 @@ def _row_for_sheet(r: Resource) -> list[Any]:
     ]
 
 
+def _sort_key(r: Resource) -> tuple[str, str, str]:
+    """Group by type alphabetically, then title, then canonical_url for stability."""
+    return (r.type or "", (r.title or "").lower(), r.canonical_url or "")
+
+
 def write_xlsx(all_deduped: dict[str, Resource], per_source: dict[str, list[Resource]]) -> None:
     wb = Workbook()
     wb.remove(wb.active)
-    sheets = [("All_Deduped", list(all_deduped.values()))] + [(name, rows) for name, rows in per_source.items()]
+    sheets = [("All_Deduped", sorted(all_deduped.values(), key=_sort_key))]
+    sheets += [(name, sorted(rows, key=_sort_key)) for name, rows in per_source.items()]
     for name, rows in sheets:
         ws = wb.create_sheet(name[:31])
         ws.append(SHEET_COLS)
@@ -987,10 +993,11 @@ def write_xlsx(all_deduped: dict[str, Resource], per_source: dict[str, list[Reso
 
 
 def write_json(all_deduped: dict[str, Resource]) -> None:
+    sorted_rows = sorted(all_deduped.values(), key=_sort_key)
     payload = {
         "generated_at": now_iso(),
         "count": len(all_deduped),
-        "resources": [r.to_dict() for r in all_deduped.values()],
+        "resources": [r.to_dict() for r in sorted_rows],
     }
     OUT_JSON.write_text(json.dumps(payload, indent=2, ensure_ascii=False))
     log(f"[out] wrote {OUT_JSON.name} ({len(all_deduped)} unique)")

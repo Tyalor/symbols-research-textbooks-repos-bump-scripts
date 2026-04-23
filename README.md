@@ -6,15 +6,17 @@ Quant finance resource index — papers, repos, whitepapers, blogs — aggregate
 
 | Path | Purpose |
 |---|---|
-| `quant_index.json` | **2384 unique resources** — source of truth (1.7 MB) |
-| `quant_index.xlsx` | Same data, Excel workbook with 7 sheets (All_Deduped + per-source) |
-| `index_builder.py` | Pipeline: loads seeds, scrapes 5 tiers of sources, dedupes, writes outputs |
-| `data/quantscience_findings.xlsx` | Seed data (22 papers + 39 repos from the HAR extraction) |
-| `docs/COST_BREAKDOWN.md` | Storage/compute/hosting costs for scaling this out |
+| `index_builder.py` | Pipeline: 5-tier scraper, dedupe, writers |
+| `data/quant_index.json` | **2384 unique resources** — source of truth |
+| `data/quant_index.xlsx` | Same data, Excel view with 7 sheets (All_Deduped + per-source) |
 | `docs/INDEX_SUMMARY.md` | Per-source row counts, date ranges, known gaps |
-| `docs/AUDIT_PROMPTS.md` | 9 standalone prompts for fresh-chat verification |
-| `docs/EXTRACTION_NOTES.md` | Notes on the original HAR extraction pass (data quality, methodology) |
-| `legacy/` | Previous-session HAR tooling (`extraction.py`, `extract_images.py`, `build_excel.py`) |
+| `docs/AUDIT_PROMPTS.md` | 9 fresh-chat verification prompts |
+| `docs/COST_BREAKDOWN.md` | Storage/compute/hosting costs for scaling this out |
+| `docs/cost-breakdown.md` | R2 + Neon pricing reference for Symbols Terminal |
+| `docs/EQUITY_REPORTS_PLAN.md` | Plan for collecting SEC filings + earnings/IR content |
+| `docs/TEXTBOOKS.md` | Curated canonical quant textbooks not in the index |
+| `docs/EXTRACTION_NOTES.md` | Notes on the original HAR extraction pass |
+| `legacy/` | Previous-session HAR tooling + `quantscience_findings.xlsx` (seed data now fully absorbed into `data/quant_index.json` with source=`quantscience_ig`) |
 
 ## Running the pipeline
 
@@ -29,13 +31,13 @@ python3 -c "import index_builder as ib; ib.RUN={k: False for k in ib.RUN}; ib.ma
 python3 -c "import index_builder as ib; ib.RUN={k: False for k in ib.RUN}; ib.RUN['tier5_blogs']=True; ib.main([])"
 ```
 
-Flip flags in the `RUN` dict at the top of `index_builder.py` to enable/disable tiers per run. Disabled tiers reuse cached data from the existing `quant_index.json`.
+Flip flags in the `RUN` dict at the top of `index_builder.py` to enable/disable tiers per run. Disabled tiers reuse cached data from the existing `data/quant_index.json`. Output rows in both json and xlsx are grouped alphabetically by type, then title.
 
 ## Sources wired in
 
 | Tier | Source | Current row count |
 |---|---|---:|
-| Seeds | `data/quantscience_findings.xlsx` | 60 |
+| Seeds | `legacy/quantscience_findings.xlsx` (absorbed into main index) | 60 |
 | Tier 1 | `awesome-quant` + `firmai/financial-machine-learning` | 608 |
 | Tier 2 | arxiv q-fin (TR/PM/ST/CP/RM/MF/PR) + Semantic Scholar citations | 1096 |
 | Tier 3 | AQR, Man Institute, Fed FEDS Notes, BIS (via RePEc) | 246 |
@@ -64,7 +66,7 @@ ls igimgs/*.jpg | xargs -P 8 -I{} sh -c \
    [ -f "ocr_txt/$b.txt" ] || tesseract "$f" "ocr_txt/$b" -l eng --psm 6 --oem 1'
 python3 extraction.py              # 3. regex + known-entity extraction
 python3 build_excel.py             # 4. curated xlsx
-# Move resulting xlsx into ../data/ to feed index_builder.py
+# Resulting xlsx stays in legacy/; index_builder.py reads it from there.
 ```
 
 ## Most-mentioned resources (from seed curator)

@@ -1,6 +1,6 @@
 # Quant Resource Index — Summary
 
-**Generated:** 2026-04-23T00:30:26Z
+**Generated:** 2026-04-23T01:09:28Z
 **Unique resources:** 2384
 **By type:** paper=1121, repo=627, blog_post=387, whitepaper=246, textbook=3
 **By confidence:** high=1146, medium=1235, low=3

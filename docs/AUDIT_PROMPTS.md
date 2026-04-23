@@ -3,11 +3,10 @@
 Standalone prompts to paste into a new Claude Code session. Each is self-contained; none reference prior-conversation context. Working directory assumed: `symbols-research-textbooks-repos-bump-scripts`.
 
 **Layout a fresh auditor should expect:**
-- `quant_index.json` and `quant_index.xlsx` at repo **root**
 - `index_builder.py` at repo **root**
-- `docs/INDEX_SUMMARY.md`, `docs/AUDIT_PROMPTS.md` (this file), `docs/COST_BREAKDOWN.md`, `docs/EXTRACTION_NOTES.md`
-- `data/quantscience_findings.xlsx` (seed input)
-- `legacy/` contains the previous-session HAR extractor; ignore for audits
+- `data/quant_index.json` and `data/quant_index.xlsx` — primary outputs
+- `docs/INDEX_SUMMARY.md`, `docs/AUDIT_PROMPTS.md` (this file), `docs/COST_BREAKDOWN.md`, `docs/EXTRACTION_NOTES.md`, `docs/cost-breakdown.md`, `docs/EQUITY_REPORTS_PLAN.md`, `docs/TEXTBOOKS.md`
+- `legacy/` holds the previous-session HAR tooling + `quantscience_findings.xlsx` (the original seed curation, now fully merged into `data/quant_index.json` with source=`quantscience_ig`)
 
 **Known state as of last build (2026-04-22):**
 - 2384 unique resources across 6 sheets
@@ -24,9 +23,9 @@ If any audit turns up something, paste its output back into the build session (n
 ## Prompt 1 — Schema + integrity (no network)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Build session already wrote quant_index.json and quant_index.xlsx. Do not modify files. Do not scrape. Verify:
+Working dir: symbols-research-textbooks-repos-bump-scripts. Build session already wrote data/quant_index.json and data/quant_index.xlsx. Do not modify files. Do not scrape. Verify:
 
-1. quant_index.json parses cleanly. Every resource has: resource_id, type ∈ {paper,repo,textbook,whitepaper,blog_post}, title, sources (non-empty list of strings), canonical_url (may be empty only for URL-less seeds), confidence ∈ {high,medium,low}, mention_count (int ≥ 1), retrieved_at (ISO8601 with Z suffix or +offset).
+1. data/quant_index.json parses cleanly. Every resource has: resource_id, type ∈ {paper,repo,textbook,whitepaper,blog_post}, title, sources (non-empty list of strings), canonical_url (may be empty only for URL-less seeds), confidence ∈ {high,medium,low}, mention_count (int ≥ 1), retrieved_at (ISO8601 with Z suffix or +offset).
 
 2. All resource_ids are unique. Show any collisions with their titles.
 
@@ -34,7 +33,7 @@ Working dir: symbols-research-textbooks-repos-bump-scripts. Build session alread
 
 4. URL-less rows (canonical_url="") should have resource_id starting with "n_". Count exceptions.
 
-5. Row count parity: quant_index.json["count"] should equal the All_Deduped data-row count in quant_index.xlsx. Flag drift.
+5. Row count parity: data/quant_index.json["count"] should equal the All_Deduped data-row count in data/quant_index.xlsx. Flag drift.
 
 6. Spot-check 20 random resource_ids — for each, verify the row's `sources` column in per-source sheets (e.g. Awesome_Lists) matches the `sources` list on the matching All_Deduped row.
 
@@ -46,13 +45,13 @@ Report: pass/fail per check, counts, any violations. Under 300 words.
 ## Prompt 2 — Seed re-verification sanity (~40 GitHub API calls)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. quantscience_findings.xlsx has 22 papers + 39 repos (61 total). These should all be present in quant_index.json tagged with "quantscience_ig" in the sources array. After dedup against awesome-lists a few seeds share rows with awesome-list sources; expect ~60 unique rows for the quantscience_ig tag.
+Working dir: symbols-research-textbooks-repos-bump-scripts. quantscience_findings.xlsx has 22 papers + 39 repos (61 total). These should all be present in data/quant_index.json tagged with "quantscience_ig" in the sources array. After dedup against awesome-lists a few seeds share rows with awesome-list sources; expect ~60 unique rows for the quantscience_ig tag.
 
-1. Every repo name from the Repos sheet should have a matching title (case-insensitive) in quant_index.json. List any missing.
+1. Every repo name from the Repos sheet should have a matching title (case-insensitive) in data/quant_index.json. List any missing.
 
 2. For each seed repo with a non-empty canonical_url, GET https://api.github.com/repos/{owner}/{repo} (Accept: application/vnd.github+json). Status 200 required. If 404 appears, the build session's search-fallback should have either (a) found an owner-matched replacement, or (b) stripped the URL. Flag 404s that still have a URL set (means the fix is broken).
 
-3. Three seeds were previously flagged as unverifiable in docs/EXTRACTION_NOTES.md: julius, Ziplime, Stock Research Agent. For each, confirm quant_index.json has the row retained (synthetic "n_" resource_id if URL is empty). Specifically for julius: its canonical_url must either be empty or have owner containing "julius" (NOT "bvschaik" — that was a search-fallback bug the build session fixed).
+3. Three seeds were previously flagged as unverifiable in docs/EXTRACTION_NOTES.md: julius, Ziplime, Stock Research Agent. For each, confirm data/quant_index.json has the row retained (synthetic "n_" resource_id if URL is empty). Specifically for julius: its canonical_url must either be empty or have owner containing "julius" (NOT "bvschaik" — that was a search-fallback bug the build session fixed).
 
 4. Seed repos with citation_count_or_stars set: sanity-check by order-of-magnitude. OpenBBTerminal ~50k+, Python-100-Days ~150k+, stable-diffusion ~70k+. Flag rows off by >10x.
 
@@ -64,7 +63,7 @@ Report under 200 words.
 ## Prompt 3 — Awesome-list noise audit (no network)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 1 scraped README.md of wilsonfreitas/awesome-quant (expect ~438 rows with that source tag) and firmai/financial-machine-learning (~191 rows). Walk quant_index.json:
+Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 1 scraped README.md of wilsonfreitas/awesome-quant (expect ~438 rows with that source tag) and firmai/financial-machine-learning (~191 rows). Walk data/quant_index.json:
 
 1. Any row where type="repo" but canonical_url does not match https://github.com/[a-z0-9-]+/[a-z0-9._-]+ exactly (lowercased). Flag.
 
@@ -136,9 +135,9 @@ Report under 300 words. If BIS has >10% junk titles, suggest adding filters to t
 ```
 Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 4 (SSRN top-ten) is expected to have ZERO rows because SSRN's topTenResults.cfm pages return Cloudflare 403 to all unauth scrapers. This is documented in INDEX_SUMMARY.md.
 
-1. Count rows with source tag starting "ssrn-" in quant_index.json. Expected: 0. If >0, the build session accidentally kept stale data — investigate.
+1. Count rows with source tag starting "ssrn-" in data/quant_index.json. Expected: 0. If >0, the build session accidentally kept stale data — investigate.
 
-2. Count data rows in the SSRN_TopTen sheet of quant_index.xlsx. Expected: 0.
+2. Count data rows in the SSRN_TopTen sheet of data/quant_index.xlsx. Expected: 0.
 
 3. INDEX_SUMMARY.md should include a note about SSRN being blocked with a ⚠ flag. If missing, the summary generator is stale.
 
@@ -176,19 +175,19 @@ Report under 300 words. If any source has >15% noise, suggest adding to BLOG_NOI
 ```
 Working dir: symbols-research-textbooks-repos-bump-scripts. Verify deliverables match the spec.
 
-1. quant_index.xlsx sheets (exact names, exact order): All_Deduped, Seeds_Quantscience_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs. Flag missing or renamed.
+1. data/quant_index.xlsx sheets (exact names, exact order): All_Deduped, Seeds_Quantscience_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs. Flag missing or renamed.
 
 2. Row 1 of every sheet: all cells bold (openpyxl Font.bold=True). freeze_panes="A2" on every sheet.
 
 3. Column widths: title column wide (>40), resource_id narrow (<25), year <10. Flag sheets with default 8.43 width on wide columns.
 
-4. quant_index.json: valid UTF-8, indent=2 pretty-printed, ends with newline. Top-level keys: generated_at, count, resources.
+4. data/quant_index.json: valid UTF-8, indent=2 pretty-printed, ends with newline. Top-level keys: generated_at, count, resources.
 
 5. INDEX_SUMMARY.md: has one subsection per source (6 total: Seeds_Quantscience_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs). Each subsection names the row count. Blocked sources (SSRN) flagged with ⚠. Known gaps section enumerates SSRN block, paperswithcode dead, AA/TS Cloudflare, unbackfilled Tier 1 stars.
 
 6. index_builder.py: CONFIG block near top contains RUN dict with keys seeds, tier1_awesome, tier2_arxiv, tier3_institutional, tier4_ssrn, tier5_blogs — all settable without code edits.
 
-7. Idempotency: run `python3 -c "import index_builder as ib; ib.RUN={k:False for k in ib.RUN}; ib.main([])"`. Should complete in <5s, re-read quant_index.json, and rewrite outputs unchanged (row count identical). Confirm.
+7. Idempotency: run `python3 -c "import index_builder as ib; ib.RUN={k:False for k in ib.RUN}; ib.main([])"`. Should complete in <5s, re-read data/quant_index.json, and rewrite outputs unchanged (row count identical). Confirm.
 
 Report under 300 words.
 ```
@@ -202,7 +201,7 @@ Working dir: symbols-research-textbooks-repos-bump-scripts. When a resource appe
 
 1. Find every row where sources has length ≥ 2. Expected ~14-40 such rows (seed-vs-awesome overlap for popular quant repos: qlib, gs-quant, Riskfolio-Lib, vectorbt, freqtrade, nautilus_trader, QuantLib, quantstats, etc.).
 
-2. For each multi-source row, verify the canonical_url appears in only ONE row of quant_index.json (no dup). If there are two rows with the same canonical_url, dedup is broken.
+2. For each multi-source row, verify the canonical_url appears in only ONE row of data/quant_index.json (no dup). If there are two rows with the same canonical_url, dedup is broken.
 
 3. For the row with title "OpenBBTerminal" (or "OpenBB-finance/OpenBBTerminal"): sources should include "quantscience_ig" AND "awesome-quant". mention_count ≥ 72 (seed xlsx had 72+ post references). confidence should be "high". Flag if not.
 
