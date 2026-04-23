@@ -11,8 +11,7 @@ Quant finance resource index — papers, repos, whitepapers, blogs — aggregate
 | `data/quant_index.xlsx` | Same data, Excel view with 7 sheets (All_Deduped + per-source) |
 | `docs/INDEX_SUMMARY.md` | Per-source row counts, date ranges, known gaps |
 | `docs/AUDIT_PROMPTS.md` | 9 fresh-chat verification prompts |
-| `docs/COST_BREAKDOWN.md` | Storage/compute/hosting costs for scaling this out |
-| `docs/cost-breakdown.md` | R2 + Neon pricing reference for Symbols Terminal |
+| `docs/COST_BREAKDOWN.md` | Two-part cost ref: (1) scaling this index, (2) R2 + Neon pricing for Symbols Terminal |
 | `docs/EQUITY_REPORTS_PLAN.md` | Plan for collecting SEC filings + earnings/IR content |
 | `docs/TEXTBOOKS.md` | Curated canonical quant textbooks not in the index |
 | `docs/EXTRACTION_NOTES.md` | Notes on the original HAR extraction pass |
