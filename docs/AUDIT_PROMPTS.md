@@ -8,11 +8,13 @@ Standalone prompts to paste into a new Claude Code session. Each is self-contain
 - `docs/INDEX_SUMMARY.md`, `docs/AUDIT_PROMPTS.md` (this file), `docs/COST_BREAKDOWN.md`, `docs/EXTRACTION_NOTES.md`, `docs/cost-breakdown.md`, `docs/EQUITY_REPORTS_PLAN.md`, `docs/TEXTBOOKS.md`
 - `legacy/` holds the previous-session HAR tooling + `quantscience_findings.xlsx` (the original seed curation, now fully merged into `data/quant_index.json` with source=`quantscience_ig`)
 
-**Known state as of last build (2026-04-22):**
-- 2384 unique resources across 6 sheets
-- Seeds 60 · Awesome_Lists 608 · ArXiv 1096 · Institutional 246 · SSRN_TopTen 0 · Blogs 388
+**Known state as of last build (2026-04-23):**
+- 2783 unique resources across 6 sheets
+- Seeds 60 · Awesome_Lists 617 · ArXiv 1096 · Institutional 642 · SSRN_TopTen 0 · Blogs 388
+- BIS expanded from ~200 → ~595 (paginated 3 RePEc pages)
 - SSRN_TopTen is **intentionally zero** — Cloudflare 403s; documented in `docs/INDEX_SUMMARY.md`
 - Alpha Architect and Two Sigma were dropped from Tier 3 (Cloudflare / JS-rendered); not a bug
+- Slug-based secondary dedup merges type=repo rows with matching (title-slug, owner); when both have URLs, a prefix guard prevents over-merging same-owner different-project repos
 
 **Order of use:** 1, 3, 8 (offline, fast). Then 2, 4 (modest API costs). Then 5, 7, 9 (noise-hunting, most likely to find real issues).
 
@@ -63,11 +65,11 @@ Report under 200 words.
 ## Prompt 3 — Awesome-list noise audit (no network)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 1 scraped README.md of wilsonfreitas/awesome-quant (expect ~438 rows with that source tag) and firmai/financial-machine-learning (~191 rows). Walk data/quant_index.json:
+Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 1 scraped README.md of wilsonfreitas/awesome-quant (emitted under source tag "awesome-quant", ~438 rows) and firmai/financial-machine-learning (emitted under source tag "financial-ml", ~191 rows). NOTE: the tag is "financial-ml", not "financial-machine-learning" — expect zero rows for the longer name. Walk data/quant_index.json:
 
-1. Any row where type="repo" but canonical_url does not match https://github.com/[a-z0-9-]+/[a-z0-9._-]+ exactly (lowercased). Flag.
+1. Any row where type="repo" but canonical_url does not match https://github.com/[a-z0-9_.-]+/[a-z0-9_.-]+ (lowercased; leading `-` is legal for GitHub repos). Count violations. The known-legit exceptions `rastaman4e/-1` and `jettbrains/-l-` have leading-dash repo names; don't flag those.
 
-2. Rows with title length < 4 characters. Known count is ~22 (bare repo names like "ta", "bt", "xts" where the markdown link text was just the repo's short name). List them all — sanity check by confirming each canonical_url has a plausible owner+repo path. These aren't bugs, just ugly; confirm not data corruption.
+2. Rows with type="repo" AND title length < 4 characters. Expected count ~22 (bare repo names like "ta", "bt", "xts", "TTR", "XAD", "-1", "-L-" where markdown link text was just the repo's short name). List them all — sanity check by confirming each canonical_url has a plausible owner+repo path. These aren't bugs, just ugly; confirm not data corruption.
 
 3. topic_tags should contain the heading context ("Awesome Quant > ...", etc.). Flag any row where topic_tags is "Table of Contents", "License", "Contributing", "See Also", "Contents", or empty-for-Tier-1.
 
@@ -111,13 +113,13 @@ Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 3 sources after
 - aqr (~11 rows)
 - man-institute (~6 rows)
 - fed-feds-notes (~30 rows)
-- bis-wp-repec (~199 rows, RePEc mirror because bis.org/publ/work.htm is 404)
+- bis-wp-repec (~550-600 rows after paginating 3 RePEc pages; was ~199 when single-page)
 
 alpha-architect and two-sigma were REMOVED (Cloudflare 403 / JS-rendered respectively). Zero rows for those source tags is correct.
 
-1. Count rows per source tag. Expect AQR 8-15, Man 4-10, Fed 25-40, BIS 180-205. Flag out-of-range.
+1. Count rows per source tag. Expect AQR 8-15, Man 4-10, Fed 25-40, BIS 500-620. Flag out-of-range. Also flag any count within 2 of a round number (100, 200, 500, 600) — suggests an undetected pagination cap.
 
-2. For BIS: every canonical_url must start with https://ideas.repec.org/p/bis/biswps/. Count violations. Titles should be real paper titles, not "By citations", "By downloads", "By date" — if any of those slipped through, the junk-filter failed.
+2. For BIS: every canonical_url must start with https://ideas.repec.org/p/bis/biswps/. Count violations. Titles should be real paper titles, not "By citations", "By downloads", "By date", "Share", "Tweet", "PDF" — if any of those slipped through, the junk-filter failed.
 
 3. For AQR/Man/Fed: list 5 titles from each. Flag if they look like nav text ("Research", "Insights", "Contact", "Subscribe", "Privacy Policy"), short <10 chars, or URL fragments.
 
@@ -187,7 +189,23 @@ Working dir: symbols-research-textbooks-repos-bump-scripts. Verify deliverables 
 
 6. index_builder.py: CONFIG block near top contains RUN dict with keys seeds, tier1_awesome, tier2_arxiv, tier3_institutional, tier4_ssrn, tier5_blogs — all settable without code edits.
 
-7. Idempotency: run `python3 -c "import index_builder as ib; ib.RUN={k:False for k in ib.RUN}; ib.main([])"`. Should complete in <5s, re-read data/quant_index.json, and rewrite outputs unchanged (row count identical). Confirm.
+7. Idempotency (content-stable under cache reload): the `generated_at` field of data/quant_index.json changes every run, so a naive file-hash diff always fails. Instead do this:
+   ```python
+   import json, hashlib
+   def digest():
+       d = json.load(open("data/quant_index.json"))
+       # hash the resources array only, sorted by resource_id for determinism
+       body = json.dumps(sorted(d["resources"], key=lambda x: x["resource_id"]), sort_keys=True)
+       return hashlib.sha256(body.encode()).hexdigest()
+   before = digest()
+   # reload cache without re-scraping
+   import index_builder as ib
+   ib.RUN = {k: False for k in ib.RUN}
+   ib.main([])
+   after = digest()
+   assert before == after, "idempotency broken: cache reload changed resource content"
+   ```
+   Should complete in <5s and `before == after`. If they differ, dump the first 3 differing rows — that's where the non-determinism lives.
 
 Report under 300 words.
 ```
@@ -199,11 +217,11 @@ Report under 300 words.
 ```
 Working dir: symbols-research-textbooks-repos-bump-scripts. When a resource appears in multiple sources the build session's merge logic (index_builder.py:merge_resources) is supposed to union sources, keep the highest confidence, sum mention_count, and take the longer title/summary.
 
-1. Find every row where sources has length ≥ 2. Expected ~14-40 such rows (seed-vs-awesome overlap for popular quant repos: qlib, gs-quant, Riskfolio-Lib, vectorbt, freqtrade, nautilus_trader, QuantLib, quantstats, etc.).
+1. Find every row where sources has length ≥ 2. Report the count. Flag only if 0 (dedup broken entirely) or >500 (dedup too aggressive, merging unrelated rows). Expect multi-hundreds — arxiv papers cross-listed across q-fin categories produce most of these, plus seed × awesome-list overlap on popular repos.
 
 2. For each multi-source row, verify the canonical_url appears in only ONE row of data/quant_index.json (no dup). If there are two rows with the same canonical_url, dedup is broken.
 
-3. For the row with title "OpenBBTerminal" (or "OpenBB-finance/OpenBBTerminal"): sources should include "quantscience_ig" AND "awesome-quant". mention_count ≥ 72 (seed xlsx had 72+ post references). confidence should be "high". Flag if not.
+3. For the row with title "OpenBBTerminal" (or similar slug): sources should include BOTH "quantscience_ig" AND "awesome-quant". mention_count ≥ 72 (seed xlsx had 72+ post references). confidence should be "high". If two separate rows exist (one per source), the slug-dedup pass failed — the builder merges repos with matching (slug, owner) as of this commit.
 
 4. Spot check: for 5 multi-source rows, confirm the title is non-empty, canonical_url is the lowercased github.com/owner/repo form, and confidence is "high" or "medium" (never "low" for a cross-validated resource).
 

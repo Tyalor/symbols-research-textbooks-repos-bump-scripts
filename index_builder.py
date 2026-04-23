@@ -8,7 +8,7 @@ Reads seed rows from quantscience_findings.xlsx + extends with:
   Tier 4: SSRN top-10 download lists
   Tier 5: curator blogs (QuantStart, Robot Wealth, Hudson & Thames)
 
-Writes quant_index.json (source of truth) + quant_index.xlsx (per-source sheets + All_Deduped).
+Writes data/quant_index.json (source of truth) + data/quant_index.xlsx (per-source sheets + All_Deduped).
 Idempotent: re-reads existing JSON, skips resource_ids refreshed within REFRESH_DAYS.
 """
 
@@ -168,6 +168,11 @@ def resource_id_for(url: str) -> str:
 
 def merge_resources(a: Resource, b: Resource) -> Resource:
     """Merge b into a. Preserves higher confidence, longer title/summary, unioned sources."""
+    if a is b:
+        # Same instance appearing twice (e.g., a multi-source row listed under
+        # every tier prefix its sources match). Merging self would double sources,
+        # mention_count, etc. — no-op instead.
+        return a
     for src in b.sources:
         if src not in a.sources:
             a.sources.append(src)
@@ -200,7 +205,30 @@ def merge_resources(a: Resource, b: Resource) -> Resource:
     return a
 
 
+def _repo_slug(title: str) -> str:
+    """Normalize a repo title to a slug for fuzzy dedup. Strips case, spaces, punctuation."""
+    return re.sub(r"[^a-z0-9]", "", (title or "").lower())
+
+
+def _repo_owner(r: Resource) -> str:
+    """Extract owner from canonical_url (github) or fall back to authors_or_owners."""
+    if r.canonical_url and "github.com/" in r.canonical_url:
+        return r.canonical_url.split("github.com/", 1)[1].split("/")[0].lower()
+    return (r.authors_or_owners or "").lower().strip()
+
+
+def _url_path_stem(url: str) -> str:
+    """Strip owner/ and return the repo-name portion (normalized to alnum-only)."""
+    if url and "github.com/" in url:
+        tail = url.split("github.com/", 1)[1].rstrip("/")
+        segs = tail.split("/")
+        if len(segs) >= 2:
+            return re.sub(r"[^a-z0-9]", "", segs[1].lower())
+    return ""
+
+
 def dedupe_merge(rows: Iterable[Resource]) -> dict[str, Resource]:
+    # Pass 1: primary dedup by URL hash (or synthetic id for URL-less rows)
     by_id: dict[str, Resource] = {}
     for r in rows:
         if r.canonical_url:
@@ -213,6 +241,57 @@ def dedupe_merge(rows: Iterable[Resource]) -> dict[str, Resource]:
             merge_resources(by_id[rid], r)
         else:
             by_id[rid] = r
+
+    # Pass 2: slug-based merge for type=repo rows. Handles GitHub-rename cases
+    # (e.g., OpenBBTerminal → OpenBB where awesome-list and seed have different URLs
+    # for the same project). Owner must match as a safety guard against collisions.
+    slug_groups: dict[tuple[str, str], list[str]] = {}
+    for rid, r in by_id.items():
+        if r.type != "repo":
+            continue
+        slug = _repo_slug(r.title)
+        if len(slug) < 4:
+            continue
+        owner = _repo_owner(r)
+        slug_groups.setdefault((slug, owner), []).append(rid)
+
+    to_remove: set[str] = set()
+    for rids in slug_groups.values():
+        if len(rids) <= 1:
+            continue
+        # Safety guard: if ≥2 rows in the group have canonical URLs, require the repo-name
+        # stems to be prefix-related (handles GitHub renames like openbb→openbbterminal,
+        # but rejects same-owner-different-repo like python-bizdays vs r-bizdays).
+        urlful = [rid for rid in rids if by_id[rid].canonical_url]
+        if len(urlful) >= 2:
+            stems = sorted({_url_path_stem(by_id[rid].canonical_url) for rid in urlful}, key=len)
+            shortest = stems[0]
+            if shortest and not all(s == shortest or s.startswith(shortest) for s in stems):
+                continue  # unrelated repo names — skip merge
+
+        # Keeper: prefer URL-ful, then higher confidence, then longer title
+        keeper = max(
+            rids,
+            key=lambda rid: (
+                1 if by_id[rid].canonical_url else 0,
+                _CONF_RANK.get(by_id[rid].confidence, 0),
+                len(by_id[rid].title or ""),
+            ),
+        )
+        for rid in rids:
+            if rid == keeper or rid in to_remove:
+                continue
+            other = by_id[rid]
+            if other.canonical_url and other.canonical_url != by_id[keeper].canonical_url:
+                secs = {s for s in by_id[keeper].secondary_urls.split(",") if s.strip()}
+                secs.add(other.canonical_url)
+                by_id[keeper].secondary_urls = ", ".join(sorted(secs))
+            merge_resources(by_id[keeper], other)
+            to_remove.add(rid)
+
+    for rid in to_remove:
+        by_id.pop(rid, None)
+
     return by_id
 
 
@@ -664,11 +743,18 @@ INST_SOURCES = [
     ("aqr", "https://www.aqr.com/Insights/Research", re.compile(r"/Insights/Research/")),
     ("man-institute", "https://www.man.com/insights", re.compile(r"/insights/")),
     ("fed-feds-notes", "https://www.federalreserve.gov/econres/notes/feds-notes/default.htm", re.compile(r"/econres/notes/feds-notes/")),
-    # BIS via RePEc (bis.org/publ/work.htm 404s; RePEc mirror is stable)
-    ("bis-wp-repec", "https://ideas.repec.org/s/bis/biswps.html", re.compile(r"/p/bis/biswps/\d+\.html")),
     # two-sigma: insights index is JS-hydrated, only self-refs in static HTML; skipped
     # alpha-architect: Cloudflare 403 on unauth scrapers; skipped
 ]
+
+# BIS via RePEc (bis.org/publ/work.htm 404s; RePEc mirror is stable).
+# RePEc paginates at ~200 papers per page. Fetch 3 pages for ~600 most-recent BIS WPs.
+BIS_REPEC_PAGES = [
+    "https://ideas.repec.org/s/bis/biswps.html",
+    "https://ideas.repec.org/s/bis/biswps2.html",
+    "https://ideas.repec.org/s/bis/biswps3.html",
+]
+BIS_REPEC_TITLE_PAT = re.compile(r"/p/bis/biswps/\d+\.html")
 
 BROWSER_UA = (
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
@@ -676,11 +762,57 @@ BROWSER_UA = (
 )
 
 
+def _fetch_bis_repec(ts: str, inst_headers: dict) -> list[Resource]:
+    """Fetch BIS working papers across RePEc pagination."""
+    rows: list[Resource] = []
+    seen: set[str] = set()
+    kept = 0
+    for page_url in BIS_REPEC_PAGES:
+        try:
+            r = SESSION.get(page_url, timeout=HTTP_TIMEOUT, headers=inst_headers)
+        except requests.RequestException as e:
+            log(f"  ! bis-wp-repec page {page_url}: {e}")
+            continue
+        if r.status_code != 200:
+            log(f"  ! bis-wp-repec page {page_url}: status {r.status_code}")
+            continue
+        links = _extract_article_links(r.text, page_url, path_pat=BIS_REPEC_TITLE_PAT)
+        for title, href, date in links:
+            norm = normalize_url(href)
+            if norm in seen:
+                continue
+            tl = title.lower().strip()
+            if tl in {"by citations", "by downloads", "by date", "research", "insights",
+                      "more", "read more", "subscribe", "contact", "share", "tweet", "pdf"}:
+                continue
+            seen.add(norm)
+            rows.append(
+                Resource(
+                    resource_id=resource_id_for(href),
+                    type="whitepaper",
+                    title=title,
+                    sources=["bis-wp-repec"],
+                    canonical_url=norm,
+                    topic_tags="institutional-research",
+                    date_published=_norm_date(date),
+                    confidence="medium",
+                    retrieved_at=ts,
+                )
+            )
+            kept += 1
+        time.sleep(2.0)
+    log(f"  bis-wp-repec: {kept} unique links across {len(BIS_REPEC_PAGES)} pages")
+    return rows
+
+
 def run_tier3_institutional() -> list[Resource]:
     rows: list[Resource] = []
     ts = now_iso()
     # Use browser UA for institutional sites (Cloudflare-averse to default SDK UAs)
     inst_headers = {"User-Agent": BROWSER_UA}
+    # BIS — paginated RePEc
+    rows.extend(_fetch_bis_repec(ts, inst_headers))
+
     for tag, url, pat in INST_SOURCES:
         log(f"[tier3] {tag}: {url}")
         try:
@@ -1062,7 +1194,8 @@ def write_summary(per_source: dict[str, list[Resource]], all_deduped: dict[str, 
         "- **paperswithcode:** 302 → huggingface.co/papers (site retired). Skipped.",
         "- **Alpha Architect, Two Sigma:** Cloudflare-blocked / JS-hydrated respectively. Dropped from Tier 3.",
         "- **Tier 1 repo stars:** not backfilled — 625 calls exceeds 60/hr unauth GitHub budget. Set `GITHUB_TOKEN` and re-run with RUN['tier1_awesome']=True for star counts.",
-        "- **Awesome-list short titles:** 5 rows have title <4 chars (e.g. `ta`, `bt`) — markdown link text was just the bare repo name. URLs are real; titles could be backfilled from GitHub.",
+        "- **Awesome-list short titles:** ~22 rows have title <4 chars (e.g. `ta`, `bt`, `xts`, `TTR`, `-1`, `-L-`) — markdown link text was just the bare repo name. URLs are real; titles could be backfilled from GitHub with a PAT.",
+        "- **Repo slug-dedup:** a second dedup pass merges repo rows with matching (title-slug, owner) even when their canonical URLs differ (handles GitHub rename cases like OpenBBTerminal → OpenBB where seed and awesome-list have different URLs for the same project).",
         "",
     ]
     OUT_SUMMARY.write_text("\n".join(lines) + "\n")
