@@ -1,0 +1,226 @@
+# Audit Prompts — Fresh-Chat Verification
+
+Standalone prompts to paste into a new Claude Code session. Each is self-contained; none reference prior-conversation context. Working directory assumed: `symbols-research-textbooks-repos-bump-scripts`.
+
+**Layout a fresh auditor should expect:**
+- `quant_index.json` and `quant_index.xlsx` at repo **root**
+- `index_builder.py` at repo **root**
+- `docs/INDEX_SUMMARY.md`, `docs/AUDIT_PROMPTS.md` (this file), `docs/COST_BREAKDOWN.md`, `docs/EXTRACTION_NOTES.md`
+- `data/quantscience_findings.xlsx` (seed input)
+- `legacy/` contains the previous-session HAR extractor; ignore for audits
+
+**Known state as of last build (2026-04-22):**
+- 2384 unique resources across 6 sheets
+- Seeds 60 · Awesome_Lists 608 · ArXiv 1096 · Institutional 246 · SSRN_TopTen 0 · Blogs 388
+- SSRN_TopTen is **intentionally zero** — Cloudflare 403s; documented in `docs/INDEX_SUMMARY.md`
+- Alpha Architect and Two Sigma were dropped from Tier 3 (Cloudflare / JS-rendered); not a bug
+
+**Order of use:** 1, 3, 8 (offline, fast). Then 2, 4 (modest API costs). Then 5, 7, 9 (noise-hunting, most likely to find real issues).
+
+If any audit turns up something, paste its output back into the build session (not a fresh one) — the build session has the context to fix. Fresh sessions exist for independent verification only.
+
+---
+
+## Prompt 1 — Schema + integrity (no network)
+
+```
+Working dir: symbols-research-textbooks-repos-bump-scripts. Build session already wrote quant_index.json and quant_index.xlsx. Do not modify files. Do not scrape. Verify:
+
+1. quant_index.json parses cleanly. Every resource has: resource_id, type ∈ {paper,repo,textbook,whitepaper,blog_post}, title, sources (non-empty list of strings), canonical_url (may be empty only for URL-less seeds), confidence ∈ {high,medium,low}, mention_count (int ≥ 1), retrieved_at (ISO8601 with Z suffix or +offset).
+
+2. All resource_ids are unique. Show any collisions with their titles.
+
+3. For every row with a non-empty canonical_url, re-derive resource_id = sha1(normalized_url).hexdigest()[:16] where normalization matches index_builder.py:normalize_url (lowercase github owner/repo, strip .git suffix, strip trailing slash, drop utm_/fbclid/gclid/mc_cid/mc_eid params, arxiv → https://arxiv.org/abs/<id> no version, SSRN → https://papers.ssrn.com/sol3/papers.cfm?abstract_id=<n>). Count mismatches.
+
+4. URL-less rows (canonical_url="") should have resource_id starting with "n_". Count exceptions.
+
+5. Row count parity: quant_index.json["count"] should equal the All_Deduped data-row count in quant_index.xlsx. Flag drift.
+
+6. Spot-check 20 random resource_ids — for each, verify the row's `sources` column in per-source sheets (e.g. Awesome_Lists) matches the `sources` list on the matching All_Deduped row.
+
+Report: pass/fail per check, counts, any violations. Under 300 words.
+```
+
+---
+
+## Prompt 2 — Seed re-verification sanity (~40 GitHub API calls)
+
+```
+Working dir: symbols-research-textbooks-repos-bump-scripts. quantscience_findings.xlsx has 22 papers + 39 repos (61 total). These should all be present in quant_index.json tagged with "quantscience_ig" in the sources array. After dedup against awesome-lists a few seeds share rows with awesome-list sources; expect ~60 unique rows for the quantscience_ig tag.
+
+1. Every repo name from the Repos sheet should have a matching title (case-insensitive) in quant_index.json. List any missing.
+
+2. For each seed repo with a non-empty canonical_url, GET https://api.github.com/repos/{owner}/{repo} (Accept: application/vnd.github+json). Status 200 required. If 404 appears, the build session's search-fallback should have either (a) found an owner-matched replacement, or (b) stripped the URL. Flag 404s that still have a URL set (means the fix is broken).
+
+3. Three seeds were previously flagged as unverifiable in docs/EXTRACTION_NOTES.md: julius, Ziplime, Stock Research Agent. For each, confirm quant_index.json has the row retained (synthetic "n_" resource_id if URL is empty). Specifically for julius: its canonical_url must either be empty or have owner containing "julius" (NOT "bvschaik" — that was a search-fallback bug the build session fixed).
+
+4. Seed repos with citation_count_or_stars set: sanity-check by order-of-magnitude. OpenBBTerminal ~50k+, Python-100-Days ~150k+, stable-diffusion ~70k+. Flag rows off by >10x.
+
+Report under 200 words.
+```
+
+---
+
+## Prompt 3 — Awesome-list noise audit (no network)
+
+```
+Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 1 scraped README.md of wilsonfreitas/awesome-quant (expect ~438 rows with that source tag) and firmai/financial-machine-learning (~191 rows). Walk quant_index.json:
+
+1. Any row where type="repo" but canonical_url does not match https://github.com/[a-z0-9-]+/[a-z0-9._-]+ exactly (lowercased). Flag.
+
+2. Rows with title length < 4 characters. Known count is ~22 (bare repo names like "ta", "bt", "xts" where the markdown link text was just the repo's short name). List them all — sanity check by confirming each canonical_url has a plausible owner+repo path. These aren't bugs, just ugly; confirm not data corruption.
+
+3. topic_tags should contain the heading context ("Awesome Quant > ...", etc.). Flag any row where topic_tags is "Table of Contents", "License", "Contributing", "See Also", "Contents", or empty-for-Tier-1.
+
+4. Top 10 canonical_urls that appear with different titles across per-source sheets (means the merge took the longer title, which is correct behavior — just confirm the winner is sensible).
+
+5. Any canonical_url containing "shields.io", "badge.fury", ".png", ".jpg", ".svg", ".gif" should be ZERO. If any exist, the badge filter is broken.
+
+6. Count repos where canonical_url begins with https://github.com/firmai/ — confirm <5 (the awesome-list README itself shouldn't self-reference heavily).
+
+Report. Under 300 words.
+```
+
+---
+
+## Prompt 4 — ArXiv Tier 2 completeness + citations
+
+```
+Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 2 scraped 7 q-fin categories (TR, PM, ST, CP, RM, MF, PR), 200 most-recent each, then backfilled Semantic Scholar citation counts for the top 50 per category (~350 S2 calls).
+
+1. For each of arxiv/q-fin.TR, arxiv/q-fin.PM, arxiv/q-fin.ST, arxiv/q-fin.CP, arxiv/q-fin.RM, arxiv/q-fin.MF, arxiv/q-fin.PR — count rows. Each should be 200 (±5 for intra-run dedup). Flag anything under 180.
+
+2. Every arxiv row's canonical_url must match ^https://arxiv\.org/abs/\d{4}\.\d{4,5}$ exactly (no version suffix, no /pdf/, no trailing slash). Count violations.
+
+3. Every arxiv row should have year (int), authors_or_owners (non-empty), date_published (YYYY-MM-DD). Count rows missing any.
+
+4. Rows with citation_count_or_stars set should be ~350. For those with citations ≥ 100, why_notable should be non-empty. Count mismatches.
+
+5. Any arxiv row with year < 2020 or year > 2027 is a parse bug (Tier 2 fetches only the 200 most recent). Flag.
+
+6. Pick 5 rows with the highest citation_count_or_stars, hit https://api.semanticscholar.org/graph/v1/paper/arXiv:{id}?fields=citationCount, confirm within ±10%. If S2 returns 404 for the id, flag (arxiv ID format mismatch).
+
+Report per-category counts and any anomalies. Under 300 words.
+```
+
+---
+
+## Prompt 5 — Institutional (Tier 3) signal audit
+
+```
+Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 3 sources after patching:
+- aqr (~11 rows)
+- man-institute (~6 rows)
+- fed-feds-notes (~30 rows)
+- bis-wp-repec (~199 rows, RePEc mirror because bis.org/publ/work.htm is 404)
+
+alpha-architect and two-sigma were REMOVED (Cloudflare 403 / JS-rendered respectively). Zero rows for those source tags is correct.
+
+1. Count rows per source tag. Expect AQR 8-15, Man 4-10, Fed 25-40, BIS 180-205. Flag out-of-range.
+
+2. For BIS: every canonical_url must start with https://ideas.repec.org/p/bis/biswps/. Count violations. Titles should be real paper titles, not "By citations", "By downloads", "By date" — if any of those slipped through, the junk-filter failed.
+
+3. For AQR/Man/Fed: list 5 titles from each. Flag if they look like nav text ("Research", "Insights", "Contact", "Subscribe", "Privacy Policy"), short <10 chars, or URL fragments.
+
+4. Spot-check: hit HEAD on 2 URLs per source with curl -sI (browser UA). Confirm 200, not 301-to-homepage. If any redirect to the site root, the URL pattern was too loose.
+
+5. Confirm no rows exist with source tag "alpha-architect" or "two-sigma" — if present, the build session forgot to drop them.
+
+Report under 300 words. If BIS has >10% junk titles, suggest adding filters to the BIS-specific branch in run_tier3_institutional.
+```
+
+---
+
+## Prompt 6 — SSRN (Tier 4) confirmed-zero check (no network)
+
+```
+Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 4 (SSRN top-ten) is expected to have ZERO rows because SSRN's topTenResults.cfm pages return Cloudflare 403 to all unauth scrapers. This is documented in INDEX_SUMMARY.md.
+
+1. Count rows with source tag starting "ssrn-" in quant_index.json. Expected: 0. If >0, the build session accidentally kept stale data — investigate.
+
+2. Count data rows in the SSRN_TopTen sheet of quant_index.xlsx. Expected: 0.
+
+3. INDEX_SUMMARY.md should include a note about SSRN being blocked with a ⚠ flag. If missing, the summary generator is stale.
+
+4. Optional: run this curl and confirm the block is still real (one call, no retry):
+   curl -sI -A "Mozilla/5.0" "https://papers.ssrn.com/sol3/topten/topTenResults.cfm?groupingId=203597&netorjrnl=ntwk"
+   Expected status: 403. If 200, SSRN changed policy and a re-run of tier4 would now succeed — flag as "worth retrying."
+
+Report under 150 words.
+```
+
+---
+
+## Prompt 7 — Blogs (Tier 5) noise audit
+
+```
+Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 5 scraped index pages of QuantStart (~286 rows), Robot Wealth (~17 rows), Hudson & Thames (~85 rows). The classifier filters out path fragments: /topic/, /category/, /tag/, /author/, /page/, /feed, /archive, /ebook.
+
+1. Count rows per source. Flag quantstart <200 or >400 (means selector broke); robot-wealth <10 or >50; hudson-thames <30 or >150.
+
+2. Sample 10 blog_post rows per source. For each, confirm the URL path is an article slug, not a category/archive/search page. Any remaining /topic/, /category/, /tag/, /author/, /page/, /feed, /archive/ slips through = filter bug.
+
+3. QuantStart rows typically look like /articles/{slug} or /{title}-ebook. Flag rows that are root-level (just /something) without an /articles/ prefix EXCEPT ebooks — those are intentional.
+
+4. For type="paper" or type="repo" rows with source tag in {quantstart, robot-wealth, hudson-thames} — the regex-extracted arxiv/SSRN/github refs. For 3 random such rows per blog, hit HEAD on the canonical_url. If any 404, the regex captured a truncated URL.
+
+5. All blog-sourced rows should have topic_tags containing "recommended-by-<blog-tag>". Count rows missing this.
+
+Report under 300 words. If any source has >15% noise, suggest adding to BLOG_NOISE_PATHS in index_builder.py.
+```
+
+---
+
+## Prompt 8 — Deliverables cross-check (offline)
+
+```
+Working dir: symbols-research-textbooks-repos-bump-scripts. Verify deliverables match the spec.
+
+1. quant_index.xlsx sheets (exact names, exact order): All_Deduped, Seeds_Quantscience_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs. Flag missing or renamed.
+
+2. Row 1 of every sheet: all cells bold (openpyxl Font.bold=True). freeze_panes="A2" on every sheet.
+
+3. Column widths: title column wide (>40), resource_id narrow (<25), year <10. Flag sheets with default 8.43 width on wide columns.
+
+4. quant_index.json: valid UTF-8, indent=2 pretty-printed, ends with newline. Top-level keys: generated_at, count, resources.
+
+5. INDEX_SUMMARY.md: has one subsection per source (6 total: Seeds_Quantscience_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs). Each subsection names the row count. Blocked sources (SSRN) flagged with ⚠. Known gaps section enumerates SSRN block, paperswithcode dead, AA/TS Cloudflare, unbackfilled Tier 1 stars.
+
+6. index_builder.py: CONFIG block near top contains RUN dict with keys seeds, tier1_awesome, tier2_arxiv, tier3_institutional, tier4_ssrn, tier5_blogs — all settable without code edits.
+
+7. Idempotency: run `python3 -c "import index_builder as ib; ib.RUN={k:False for k in ib.RUN}; ib.main([])"`. Should complete in <5s, re-read quant_index.json, and rewrite outputs unchanged (row count identical). Confirm.
+
+Report under 300 words.
+```
+
+---
+
+## Prompt 9 — Cross-source merge correctness (no network)
+
+```
+Working dir: symbols-research-textbooks-repos-bump-scripts. When a resource appears in multiple sources the build session's merge logic (index_builder.py:merge_resources) is supposed to union sources, keep the highest confidence, sum mention_count, and take the longer title/summary.
+
+1. Find every row where sources has length ≥ 2. Expected ~14-40 such rows (seed-vs-awesome overlap for popular quant repos: qlib, gs-quant, Riskfolio-Lib, vectorbt, freqtrade, nautilus_trader, QuantLib, quantstats, etc.).
+
+2. For each multi-source row, verify the canonical_url appears in only ONE row of quant_index.json (no dup). If there are two rows with the same canonical_url, dedup is broken.
+
+3. For the row with title "OpenBBTerminal" (or "OpenBB-finance/OpenBBTerminal"): sources should include "quantscience_ig" AND "awesome-quant". mention_count ≥ 72 (seed xlsx had 72+ post references). confidence should be "high". Flag if not.
+
+4. Spot check: for 5 multi-source rows, confirm the title is non-empty, canonical_url is the lowercased github.com/owner/repo form, and confidence is "high" or "medium" (never "low" for a cross-validated resource).
+
+5. Count confidence distribution in multi-source rows. Expected: mostly high (because at least one source validates it strongly). Flag if >20% are "low".
+
+Report under 250 words.
+```
+
+---
+
+## How to triage findings
+
+- **Schema errors** (Prompt 1): block — fix before shipping.
+- **Seed-repo bugs** (Prompt 2 #2, #3): block — seeds are the trust anchor.
+- **Noise in one source** (Prompts 3, 5, 7): downgrade confidence for that source tag rather than delete rows; list the fix and re-run just that tier (`RUN[tierN_*]=True`, others False).
+- **Silent zero-row sources**: always investigate. Silence without an INDEX_SUMMARY ⚠ note is a scraper failure, not an empty upstream.
+- **Dedup collisions** (Prompts 1 #3, 9 #2): suggests normalize_url missed a case. Add the case, re-hash, re-run from cache.
+
+Re-running from cache after a fix takes <5s — don't regenerate from scratch unless Tier 2 (arxiv) data is what changed.
