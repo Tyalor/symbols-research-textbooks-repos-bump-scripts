@@ -8,7 +8,7 @@ Tiers:
   Tier 4: SSRN top-10 download lists
   Tier 5: curator blogs (QuantStart, Robot Wealth, Hudson & Thames)
 
-Cached-only: rows tagged with "seeds_ig" in data/quant_index.json carry over from a prior
+Cached-only: rows tagged with "quantscience_ig" in data/quant_index.json carry over from a prior
 seed-curation pass. There is no live fetcher for that tier — flip RUN flags to refresh other tiers.
 
 Writes data/quant_index.json (source of truth) + data/quant_index.xlsx (per-source sheets + All_Deduped).
@@ -1068,7 +1068,7 @@ def cached_rows_for(existing: dict[str, Resource], source_prefixes: tuple[str, .
 
 
 TIER_SOURCES = {
-    "Seeds_IG": ("seeds_ig",),
+    "Seeds_IG": ("quantscience_ig",),
     "Awesome_Lists": ("awesome-quant", "financial-ml", "paperswithcode"),
     "ArXiv": ("arxiv/",),
     "Institutional": ("aqr", "man-institute", "two-sigma", "alpha-architect", "bis-wp", "fed-feds-notes"),

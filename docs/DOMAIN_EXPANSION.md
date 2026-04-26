@@ -12,7 +12,7 @@ Companion to `DATA_COLLECTION.md` (which is about retrieval). This doc is about 
 |---|---|
 | Rows | 2,783 |
 | Source tiers | 5 (seeds, awesome-lists, arxiv q-fin, institutional, blogs) |
-| Source count | 6 (seeds_ig, awesome-quant, financial-ml, arxiv/q-fin.*, {aqr,man,fed,bis}, {quantstart,rw,ht}) |
+| Source count | 6 (quantscience_ig, awesome-quant, financial-ml, arxiv/q-fin.*, {aqr,man,fed,bis}, {quantstart,rw,ht}) |
 | Types | paper, repo, textbook, whitepaper, blog_post |
 | Metadata fields | 16 (title, authors, year, URL, tags, summary, citations/stars, date, mention_count, confidence, etc.) |
 | Citation graph | none — each resource is an island |

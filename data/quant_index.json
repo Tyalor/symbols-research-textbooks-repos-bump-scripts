@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-26T23:52:41Z",
+  "generated_at": "2026-04-26T23:58:30Z",
   "count": 2783,
   "resources": [
     {
@@ -7810,7 +7810,7 @@
       "authors_or_owners": "Zura Kakushadze, Juan Andrés Serur",
       "year": 2018,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3247865",
       "secondary_urls": "",
@@ -8230,7 +8230,7 @@
       "authors_or_owners": "Zifeng Feng, Bingxin Li, Feng Liu",
       "year": 2024,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4849578",
       "secondary_urls": "",
@@ -8698,7 +8698,7 @@
       "authors_or_owners": "Daniel Bloch",
       "year": 2016,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2715517",
       "secondary_urls": "",
@@ -9369,7 +9369,7 @@
       "authors_or_owners": "Google",
       "year": 2026,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -11312,7 +11312,7 @@
       "authors_or_owners": "Sebastien Valeyre",
       "year": 2025,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://arxiv.org/abs/2504.10914",
       "secondary_urls": "",
@@ -11352,7 +11352,7 @@
       "authors_or_owners": "Alejandro Lopez-Lira, Jihoon Kwon, Sangwoon Yoon, Jy-yong Sohn, Chanyeol Choi",
       "year": 2025,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -11516,7 +11516,7 @@
       "authors_or_owners": "",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -12025,7 +12025,7 @@
       "authors_or_owners": "",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -12489,7 +12489,7 @@
       "authors_or_owners": "Qishuo Hua, Lyumanshan Ye, Dayuan Fu, Yang Xiao, Xiaojie Cai, Yunze Wu, Jifan Lin, Junfei Wang, Pengfei Liu",
       "year": 2026,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -13399,7 +13399,7 @@
       "authors_or_owners": "DeepSeek-AI",
       "year": 2025,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://arxiv.org/abs/2501.12948",
       "secondary_urls": "",
@@ -14795,7 +14795,7 @@
       "authors_or_owners": "Shihao Gu, Bryan Kelly, Dacheng Xiu",
       "year": 2020,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -16077,7 +16077,7 @@
       "authors_or_owners": "",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -16117,7 +16117,7 @@
       "authors_or_owners": "Alex G. Kim, Maximilian Muhn, Valeri V. Nikolaev",
       "year": 2024,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -16870,7 +16870,7 @@
       "authors_or_owners": "Victor de Lamo Castrillo, Habtom Kahsay Gidey, Alexander Lenz, Alois Knoll",
       "year": 2025,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -19677,7 +19677,7 @@
       "authors_or_owners": "",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -22919,7 +22919,7 @@
       "authors_or_owners": "Evan Gatev, William Goetzmann, K. Geert Rouwenhorst",
       "year": 2006,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -24070,7 +24070,7 @@
       "authors_or_owners": "Yves Hilpisch",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -27619,7 +27619,7 @@
       "authors_or_owners": "Pulkit Verma, Ngoc La, Anthony Favier, Swaroop Mishra, Julie A. Shah",
       "year": 2025,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://arxiv.org/abs/2509.13351",
       "secondary_urls": "",
@@ -27782,7 +27782,7 @@
       "authors_or_owners": "",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -28812,7 +28812,7 @@
       "authors_or_owners": "Tobias J. Moskowitz, Yao Hua Ooi, Lasse Heje Pedersen",
       "year": 2012,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -29154,7 +29154,7 @@
       "authors_or_owners": "TauricResearch",
       "year": 2025,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/tauricresearch/tradingagents",
       "secondary_urls": "",
@@ -29599,7 +29599,7 @@
       "authors_or_owners": "Jim Simons",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -30693,7 +30693,7 @@
       "authors_or_owners": "virattt",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/virattt/ai-financial-agent",
       "secondary_urls": "",
@@ -30713,7 +30713,7 @@
       "authors_or_owners": "virattt",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/virattt/ai-hedge-fund",
       "secondary_urls": "",
@@ -30773,7 +30773,7 @@
       "authors_or_owners": "microsoft",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/microsoft/ai-for-beginners",
       "secondary_urls": "",
@@ -31034,7 +31034,7 @@
       "authors_or_owners": "quantopian",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/quantopian/alphalens",
@@ -31075,7 +31075,7 @@
       "authors_or_owners": "ScottFreeLLC",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant",
         "financial-ml"
       ],
@@ -32117,7 +32117,7 @@
       "authors_or_owners": "anthropics",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/anthropics/claude-cookbooks",
       "secondary_urls": "",
@@ -32137,7 +32137,7 @@
       "authors_or_owners": "openai",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/openai/clip",
       "secondary_urls": "",
@@ -32617,7 +32617,7 @@
       "authors_or_owners": "microsoft",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/microsoft/data-science-for-beginners",
       "secondary_urls": "",
@@ -33079,7 +33079,7 @@
       "authors_or_owners": "DS4SD",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/docling-project/docling",
       "secondary_urls": "",
@@ -33119,7 +33119,7 @@
       "authors_or_owners": "stanfordnlp",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/stanfordnlp/dspy",
       "secondary_urls": "",
@@ -34259,7 +34259,7 @@
       "authors_or_owners": "AI4Finance-Foundation",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/ai4finance-foundation/finrl",
       "secondary_urls": "",
@@ -34520,7 +34520,7 @@
       "authors_or_owners": "freqtrade",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/freqtrade/freqtrade",
@@ -35302,7 +35302,7 @@
       "authors_or_owners": "google-research",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/google-research/google-research",
       "secondary_urls": "",
@@ -35342,7 +35342,7 @@
       "authors_or_owners": "goldmansachs",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant",
         "financial-ml"
       ],
@@ -35585,7 +35585,7 @@
       "authors_or_owners": "erdewit",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/erdewit/ib_insync",
       "secondary_urls": "",
@@ -36025,7 +36025,7 @@
       "authors_or_owners": "julius-ai",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "https://github.com/julius-ai/julius",
@@ -36987,7 +36987,7 @@
       "authors_or_owners": "nanobot-ai",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/nanobot-ai/nanobot",
       "secondary_urls": "",
@@ -37007,7 +37007,7 @@
       "authors_or_owners": "nautechsystems",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/nautechsystems/nautilus_trader",
@@ -37448,7 +37448,7 @@
       "authors_or_owners": "openai",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/openai/openai-cookbook",
       "secondary_urls": "",
@@ -37468,7 +37468,7 @@
       "authors_or_owners": "OpenBB-finance",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/openbb-finance/openbb",
@@ -37489,7 +37489,7 @@
       "authors_or_owners": "OpenBB-finance",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/openbb-finance/experimental-openbb-platform-agent",
       "secondary_urls": "",
@@ -38972,7 +38972,7 @@
       "authors_or_owners": "jackfrued",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/jackfrued/python-100-days",
       "secondary_urls": "",
@@ -39032,7 +39032,7 @@
       "authors_or_owners": "jpmorganchase",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/jpmorganchase/python-training",
@@ -39073,7 +39073,7 @@
       "authors_or_owners": "jakevdp",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/jakevdp/pythondatasciencehandbook",
       "secondary_urls": "",
@@ -39133,7 +39133,7 @@
       "authors_or_owners": "business-science",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/business-science/pytimetk",
       "secondary_urls": "",
@@ -39193,7 +39193,7 @@
       "authors_or_owners": "quarkfin",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/quarkfin/qf-lib",
@@ -39214,7 +39214,7 @@
       "authors_or_owners": "microsoft",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/microsoft/qlib",
@@ -39715,7 +39715,7 @@
       "authors_or_owners": "lballabio",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/lballabio/quantlib",
@@ -39936,7 +39936,7 @@
       "authors_or_owners": "ranaroussi",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/ranaroussi/quantstats",
@@ -40138,7 +40138,7 @@
       "authors_or_owners": "microsoft",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/microsoft/rd-agent",
       "secondary_urls": "",
@@ -40238,7 +40238,7 @@
       "authors_or_owners": "dcajasn",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant",
         "financial-ml"
       ],
@@ -40622,7 +40622,7 @@
       "authors_or_owners": "facebookresearch",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/facebookresearch/segment-anything",
       "secondary_urls": "",
@@ -40842,7 +40842,7 @@
       "authors_or_owners": "CompVis",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "https://github.com/compvis/stable-diffusion",
       "secondary_urls": "",
@@ -40882,7 +40882,7 @@
       "authors_or_owners": "",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",
@@ -41485,7 +41485,7 @@
       "authors_or_owners": "tensortrade-org",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "financial-ml"
       ],
       "canonical_url": "https://github.com/tensortrade-org/tensortrade",
@@ -42346,7 +42346,7 @@
       "authors_or_owners": "polakowo",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/polakowo/vectorbt",
@@ -42907,7 +42907,7 @@
       "authors_or_owners": "ranaroussi",
       "year": null,
       "sources": [
-        "seeds_ig",
+        "quantscience_ig",
         "awesome-quant"
       ],
       "canonical_url": "https://github.com/ranaroussi/yfinance",
@@ -43008,7 +43008,7 @@
       "authors_or_owners": "",
       "year": null,
       "sources": [
-        "seeds_ig"
+        "quantscience_ig"
       ],
       "canonical_url": "",
       "secondary_urls": "",

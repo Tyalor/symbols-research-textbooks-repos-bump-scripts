@@ -6,7 +6,7 @@ Standalone prompts to paste into a new Claude Code session. Each is self-contain
 - `index_builder.py` at repo **root**
 - `data/quant_index.json` and `data/quant_index.xlsx` — primary outputs
 - `docs/INDEX_SUMMARY.md`, `docs/AUDIT_PROMPTS.md` (this file), `docs/COST_BREAKDOWN.md`, `docs/EXTRACTION_NOTES.md`, `docs/cost-breakdown.md`, `docs/EQUITY_REPORTS_PLAN.md`, `docs/TEXTBOOKS.md`
-- `legacy/` holds the generic IG-HAR extraction toolkit; the original seed curation has been fully merged into `data/quant_index.json` under source=`seeds_ig`
+- `legacy/` holds the generic IG-HAR extraction toolkit; the original seed curation has been fully merged into `data/quant_index.json` under source=`quantscience_ig`
 
 **Known state as of last build (2026-04-23):**
 - 2783 unique resources across 6 sheets
@@ -47,7 +47,7 @@ Report: pass/fail per check, counts, any violations. Under 300 words.
 ## Prompt 2 — Seed re-verification sanity (~40 GitHub API calls)
 
 ```
-Run from the project root. The seed curation pass produced 22 papers + 39 repos (61 total). These should all be present in data/quant_index.json tagged with "seeds_ig" in the sources array. After dedup against awesome-lists a few seeds share rows with awesome-list sources; expect ~60 unique rows for the seeds_ig tag.
+Run from the project root. The seed curation pass produced 22 papers + 39 repos (61 total). These should all be present in data/quant_index.json tagged with "quantscience_ig" in the sources array. After dedup against awesome-lists a few seeds share rows with awesome-list sources; expect ~60 unique rows for the quantscience_ig tag.
 
 1. Every seed repo (rows tagged seeds_ig with type=repo) should have a matching title in data/quant_index.json. List any anomalies.
 
@@ -221,7 +221,7 @@ Run from the project root. When a resource appears in multiple sources the build
 
 2. For each multi-source row, verify the canonical_url appears in only ONE row of data/quant_index.json (no dup). If there are two rows with the same canonical_url, dedup is broken.
 
-3. For the row with title "OpenBBTerminal" (or similar slug): sources should include BOTH "seeds_ig" AND "awesome-quant". mention_count ≥ 72 (the seed pass had 72+ post references). confidence should be "high". If two separate rows exist (one per source), the slug-dedup pass failed — the builder merges repos with matching (slug, owner) as of this commit.
+3. For the row with title "OpenBBTerminal" (or similar slug): sources should include BOTH "quantscience_ig" AND "awesome-quant". mention_count ≥ 72 (the seed pass had 72+ post references). confidence should be "high". If two separate rows exist (one per source), the slug-dedup pass failed — the builder merges repos with matching (slug, owner) as of this commit.
 
 4. Spot check: for 5 multi-source rows, confirm the title is non-empty, canonical_url is the lowercased github.com/owner/repo form, and confidence is "high" or "medium" (never "low" for a cross-validated resource).
 
