@@ -1,12 +1,15 @@
 """
 Quant resource index builder.
 
-Reads seed rows from quantscience_findings.xlsx + extends with:
+Tiers:
   Tier 1: awesome-lists (wilsonfreitas/awesome-quant, firmai/financial-machine-learning, paperswithcode finance)
   Tier 2: arxiv q-fin
   Tier 3: institutional research (AQR, Man, Two Sigma, Alpha Architect, BIS, Fed FEDS)
   Tier 4: SSRN top-10 download lists
   Tier 5: curator blogs (QuantStart, Robot Wealth, Hudson & Thames)
+
+Cached-only: rows tagged with "seeds_ig" in data/quant_index.json carry over from a prior
+seed-curation pass. There is no live fetcher for that tier — flip RUN flags to refresh other tiers.
 
 Writes data/quant_index.json (source of truth) + data/quant_index.xlsx (per-source sheets + All_Deduped).
 Idempotent: re-reads existing JSON, skips resource_ids refreshed within REFRESH_DAYS.
@@ -28,7 +31,7 @@ from typing import Any, Callable, Iterable
 import feedparser
 import requests
 from bs4 import BeautifulSoup
-from openpyxl import Workbook, load_workbook
+from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font
 from openpyxl.utils import get_column_letter
 
@@ -36,13 +39,11 @@ from openpyxl.utils import get_column_letter
 # CONFIG — flip sources on/off for partial runs
 # ---------------------------------------------------------------------------
 ROOT = Path(__file__).resolve().parent
-SEED_XLSX = ROOT / "legacy" / "quantscience_findings.xlsx"
 OUT_JSON = ROOT / "data" / "quant_index.json"
 OUT_XLSX = ROOT / "data" / "quant_index.xlsx"
 OUT_SUMMARY = ROOT / "docs" / "INDEX_SUMMARY.md"
 
 RUN = {
-    "seeds": True,
     "tier1_awesome": True,
     "tier2_arxiv": True,
     "tier3_institutional": True,
@@ -348,155 +349,6 @@ LOG_LINES: list[str] = []
 def log(msg: str) -> None:
     print(msg, flush=True)
     LOG_LINES.append(msg)
-
-
-# ---------------------------------------------------------------------------
-# Seed loading (from quantscience_findings.xlsx)
-# ---------------------------------------------------------------------------
-
-
-def count_mentions(source_post_id: str | None) -> int:
-    if not source_post_id:
-        return 1
-    return max(1, len([x for x in str(source_post_id).split(",") if x.strip()]))
-
-
-def load_seeds() -> list[Resource]:
-    wb = load_workbook(SEED_XLSX)
-    rows: list[Resource] = []
-    ts = now_iso()
-
-    # Papers sheet
-    ws = wb["Papers"]
-    headers = [c.value for c in ws[1]]
-    for row in ws.iter_rows(min_row=2, values_only=True):
-        rec = dict(zip(headers, row))
-        title = (rec.get("title") or "").strip()
-        url = (rec.get("url") or "").strip()
-        if not title and not url:
-            continue
-        arxiv_id = (rec.get("arxiv_or_ssrn_id") or "").strip()
-        if not url and arxiv_id:
-            if arxiv_id.startswith("SSRN"):
-                aid = arxiv_id.replace("SSRN-", "").strip()
-                url = f"https://papers.ssrn.com/sol3/papers.cfm?abstract_id={aid}"
-            else:
-                url = f"https://arxiv.org/abs/{arxiv_id}"
-        r = Resource(
-            resource_id=resource_id_for(url) if url else hashlib.sha1(title.encode()).hexdigest()[:16],
-            type="paper",
-            title=title,
-            authors_or_owners=(rec.get("authors") or "").strip(),
-            year=int(rec["year"]) if rec.get("year") else None,
-            sources=["quantscience_ig"],
-            canonical_url=normalize_url(url) if url else "",
-            topic_tags=(rec.get("topic_tags") or "").strip(),
-            one_line_summary=(rec.get("caption_snippet") or "").strip()[:300],
-            mention_count=count_mentions(rec.get("source_post_id")),
-            confidence=(rec.get("confidence") or "medium").strip(),
-            retrieved_at=ts,
-        )
-        rows.append(r)
-
-    # Repos sheet
-    ws = wb["Repos"]
-    headers = [c.value for c in ws[1]]
-    for row in ws.iter_rows(min_row=2, values_only=True):
-        rec = dict(zip(headers, row))
-        name = (rec.get("name") or "").strip()
-        url = (rec.get("github_url") or "").strip() if rec.get("github_url") else ""
-        if not name:
-            continue
-        r = Resource(
-            resource_id=resource_id_for(url) if url else hashlib.sha1(name.encode()).hexdigest()[:16],
-            type="repo",
-            title=name,
-            authors_or_owners=url.split("github.com/")[1].split("/")[0] if "github.com/" in url else "",
-            sources=["quantscience_ig"],
-            canonical_url=normalize_url(url) if url else "",
-            topic_tags=(rec.get("category") or "").strip(),
-            one_line_summary=(rec.get("description") or rec.get("caption_snippet") or "").strip()[:300],
-            mention_count=count_mentions(rec.get("source_post_id")),
-            confidence=(rec.get("confidence") or "medium").strip(),
-            retrieved_at=ts,
-        )
-        rows.append(r)
-
-    log(f"[seeds] loaded {len(rows)} seed rows from {SEED_XLSX.name}")
-    return rows
-
-
-# ---------------------------------------------------------------------------
-# Seed URL re-verification
-# ---------------------------------------------------------------------------
-
-
-def verify_github_repo(url: str) -> tuple[str, int | None]:
-    """Return (verified_url, stars). On 404 try search. Empty url if uncorrectable."""
-    if "github.com/" not in url:
-        return url, None
-    path = url.split("github.com/", 1)[1].strip("/")
-    segs = path.split("/")
-    if len(segs) < 2:
-        return url, None
-    owner, repo = segs[0], segs[1]
-    api = f"https://api.github.com/repos/{owner}/{repo}"
-    r = http_get(api, accept="application/vnd.github+json")
-    if r is None:
-        return url, None
-    if r.status_code == 200:
-        d = r.json()
-        return f"https://github.com/{d['full_name']}", d.get("stargazers_count")
-    if r.status_code == 404:
-        # Search — but only accept if owner matches (avoid grabbing unrelated repo with same name)
-        sr = http_get("https://api.github.com/search/repositories", params={"q": f"{repo} user:{owner}", "per_page": 3})
-        if sr is not None and sr.status_code == 200:
-            for it in (sr.json().get("items") or []):
-                if it["name"].lower() == repo.lower() and it["owner"]["login"].lower() == owner.lower():
-                    return it["html_url"], it.get("stargazers_count")
-        return "", None  # owner mismatch = unverified
-    return url, None
-
-
-def verify_arxiv_id(arxiv_id: str) -> bool:
-    r = http_get(f"http://export.arxiv.org/api/query?id_list={arxiv_id}")
-    return bool(r and r.status_code == 200 and arxiv_id in (r.text or ""))
-
-
-def verify_ssrn_id(ssrn_id: str) -> bool:
-    u = f"https://papers.ssrn.com/sol3/papers.cfm?abstract_id={ssrn_id}"
-    try:
-        r = SESSION.head(u, timeout=HTTP_TIMEOUT, allow_redirects=True)
-        return r.status_code < 400
-    except requests.RequestException:
-        return False
-
-
-def reverify_seeds(seeds: list[Resource]) -> list[Resource]:
-    """Re-verify URLs. Limits GitHub calls to GITHUB_BUDGET (seeds are ~22 repos with URLs)."""
-    gh_budget = 50
-    checked = 0
-    for r in seeds:
-        if r.type == "repo" and r.canonical_url and checked < gh_budget:
-            checked += 1
-            new_url, stars = verify_github_repo(r.canonical_url)
-            if new_url and new_url != r.canonical_url:
-                r.canonical_url = normalize_url(new_url)
-                r.resource_id = resource_id_for(r.canonical_url)
-            elif not new_url:
-                # not verifiable; keep the row but strip the url
-                r.secondary_urls = (r.secondary_urls + ", " + r.canonical_url).strip(", ")
-                r.canonical_url = ""
-                r.confidence = "low" if r.confidence == "medium" else r.confidence
-            if stars is not None:
-                r.citation_count_or_stars = stars
-        elif r.type == "paper" and "arxiv.org/abs/" in r.canonical_url:
-            m = re.search(r"abs/(\d{4}\.\d{4,5})", r.canonical_url)
-            if m and verify_arxiv_id(m.group(1)):
-                pass  # verified
-            time.sleep(ARXIV_DELAY)
-    log(f"[seeds] re-verified {checked} github repos")
-    return seeds
 
 
 # ---------------------------------------------------------------------------
@@ -1154,7 +1006,7 @@ def write_summary(per_source: dict[str, list[Resource]], all_deduped: dict[str, 
 
     sections: list[str] = []
     source_notes = {
-        "Seeds_Quantscience_IG": "Loaded from quantscience_findings.xlsx (22 papers + 39 repos). URLs re-verified via GitHub API; search fallback requires owner match to avoid swapping in unrelated repos (the bvschaik/julius bug was caught here).",
+        "Seeds_IG": "Cached-only seed rows carried over from a prior curation pass (22 papers + 39 repos). No live fetcher — refresh by editing data/quant_index.json directly.",
         "Awesome_Lists": "Parsed README.md of wilsonfreitas/awesome-quant + firmai/financial-machine-learning. Badges, image assets, and non-quant links filtered via classify_url. paperswithcode skipped: site redirects to huggingface.co/papers (dead).",
         "ArXiv": "Fetched 200 most-recent per category from export.arxiv.org Atom API (3s pacing). Semantic Scholar citation counts backfilled for top 50 per category (350 total, ~19min at 3.2s/req unauth).",
         "Institutional": "Browser UA used to avoid Cloudflare 403s. BIS pulled via RePEc mirror (bis.org/publ/work.htm is 404 as of this run). Alpha Architect and Two Sigma both return 403 or JS-hydrated placeholders — dropped.",
@@ -1216,7 +1068,7 @@ def cached_rows_for(existing: dict[str, Resource], source_prefixes: tuple[str, .
 
 
 TIER_SOURCES = {
-    "Seeds_Quantscience_IG": ("quantscience_ig",),
+    "Seeds_IG": ("seeds_ig",),
     "Awesome_Lists": ("awesome-quant", "financial-ml", "paperswithcode"),
     "ArXiv": ("arxiv/",),
     "Institutional": ("aqr", "man-institute", "two-sigma", "alpha-architect", "bis-wp", "fed-feds-notes"),
@@ -1238,13 +1090,8 @@ def main(argv: list[str]) -> int:
             log(f"[{sheet}] using {len(rows)} cached rows (RUN disabled)")
         per_source[sheet] = rows
 
-    if RUN["seeds"]:
-        seeds = load_seeds()
-        seeds = reverify_seeds(seeds)
-        per_source["Seeds_Quantscience_IG"] = seeds
-    else:
-        per_source["Seeds_Quantscience_IG"] = cached_rows_for(existing, TIER_SOURCES["Seeds_Quantscience_IG"])
-        log(f"[seeds] using {len(per_source['Seeds_Quantscience_IG'])} cached rows")
+    per_source["Seeds_IG"] = cached_rows_for(existing, TIER_SOURCES["Seeds_IG"])
+    log(f"[seeds] using {len(per_source['Seeds_IG'])} cached rows (no live fetcher)")
 
     fetch_or_cache("Awesome_Lists", RUN["tier1_awesome"], run_tier1_awesome)
     fetch_or_cache("ArXiv", RUN["tier2_arxiv"], run_tier2_arxiv)

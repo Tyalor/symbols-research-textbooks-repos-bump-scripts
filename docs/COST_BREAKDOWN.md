@@ -46,7 +46,7 @@ Grounded in the current build (2783 rows after BIS pagination, April 2026). Grow
 | Institutional (AQR/Man/Fed/BIS) | 200–500 | Fed FEDS Notes + BIS working papers dominate |
 | Blogs (QS/RW/HT) | 100–300 | low; blog cadence is monthly |
 | Awesome-lists drift | 50–100 | README updates; slow |
-| Seed / quantscience_ig | 20–50 | only if HAR is re-captured |
+| Seed / seeds_ig | 20–50 | only if HAR is re-captured |
 | **Total** | **~3,500–6,000 rows/yr** | |
 
 ### Three storage scenarios

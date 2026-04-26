@@ -6,11 +6,11 @@ Standalone prompts to paste into a new Claude Code session. Each is self-contain
 - `index_builder.py` at repo **root**
 - `data/quant_index.json` and `data/quant_index.xlsx` — primary outputs
 - `docs/INDEX_SUMMARY.md`, `docs/AUDIT_PROMPTS.md` (this file), `docs/COST_BREAKDOWN.md`, `docs/EXTRACTION_NOTES.md`, `docs/cost-breakdown.md`, `docs/EQUITY_REPORTS_PLAN.md`, `docs/TEXTBOOKS.md`
-- `legacy/` holds the previous-session HAR tooling + `quantscience_findings.xlsx` (the original seed curation, now fully merged into `data/quant_index.json` with source=`quantscience_ig`)
+- `legacy/` holds the generic IG-HAR extraction toolkit; the original seed curation has been fully merged into `data/quant_index.json` under source=`seeds_ig`
 
 **Known state as of last build (2026-04-23):**
 - 2783 unique resources across 6 sheets
-- Seeds 60 · Awesome_Lists 617 · ArXiv 1096 · Institutional 642 · SSRN_TopTen 0 · Blogs 388
+- Seeds_IG 60 · Awesome_Lists 617 · ArXiv 1096 · Institutional 642 · SSRN_TopTen 0 · Blogs 388
 - BIS expanded from ~200 → ~595 (paginated 3 RePEc pages)
 - SSRN_TopTen is **intentionally zero** — Cloudflare 403s; documented in `docs/INDEX_SUMMARY.md`
 - Alpha Architect and Two Sigma were dropped from Tier 3 (Cloudflare / JS-rendered); not a bug
@@ -47,13 +47,13 @@ Report: pass/fail per check, counts, any violations. Under 300 words.
 ## Prompt 2 — Seed re-verification sanity (~40 GitHub API calls)
 
 ```
-Run from the project root. quantscience_findings.xlsx has 22 papers + 39 repos (61 total). These should all be present in data/quant_index.json tagged with "quantscience_ig" in the sources array. After dedup against awesome-lists a few seeds share rows with awesome-list sources; expect ~60 unique rows for the quantscience_ig tag.
+Run from the project root. The seed curation pass produced 22 papers + 39 repos (61 total). These should all be present in data/quant_index.json tagged with "seeds_ig" in the sources array. After dedup against awesome-lists a few seeds share rows with awesome-list sources; expect ~60 unique rows for the seeds_ig tag.
 
-1. Every repo name from the Repos sheet should have a matching title (case-insensitive) in data/quant_index.json. List any missing.
+1. Every seed repo (rows tagged seeds_ig with type=repo) should have a matching title in data/quant_index.json. List any anomalies.
 
-2. For each seed repo with a non-empty canonical_url, GET https://api.github.com/repos/{owner}/{repo} (Accept: application/vnd.github+json). Status 200 required. If 404 appears, the build session's search-fallback should have either (a) found an owner-matched replacement, or (b) stripped the URL. Flag 404s that still have a URL set (means the fix is broken).
+2. For each seed repo with a non-empty canonical_url, GET https://api.github.com/repos/{owner}/{repo} (Accept: application/vnd.github+json). Status 200 required. If 404 appears, flag — seed rows with broken URLs need scrubbing.
 
-3. Three seeds were previously flagged as unverifiable in docs/EXTRACTION_NOTES.md: julius, Ziplime, Stock Research Agent. For each, confirm data/quant_index.json has the row retained (synthetic "n_" resource_id if URL is empty). Specifically for julius: its canonical_url must either be empty or have owner containing "julius" (NOT "bvschaik" — that was a search-fallback bug the build session fixed).
+3. Three seeds were previously flagged as unverifiable in docs/EXTRACTION_NOTES.md: julius, Ziplime, Stock Research Agent. For each, confirm data/quant_index.json has the row retained (synthetic "n_" resource_id if URL is empty). Specifically for julius: its canonical_url must either be empty or have owner containing "julius" (NOT "bvschaik" — that was a search-fallback bug fixed in an earlier pass).
 
 4. Seed repos with citation_count_or_stars set: sanity-check by order-of-magnitude. OpenBBTerminal ~50k+, Python-100-Days ~150k+, stable-diffusion ~70k+. Flag rows off by >10x.
 
@@ -177,7 +177,7 @@ Report under 300 words. If any source has >15% noise, suggest adding to BLOG_NOI
 ```
 Run from the project root. Verify deliverables match the spec.
 
-1. data/quant_index.xlsx sheets (exact names, exact order): All_Deduped, Seeds_Quantscience_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs. Flag missing or renamed.
+1. data/quant_index.xlsx sheets (exact names, exact order): All_Deduped, Seeds_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs. Flag missing or renamed.
 
 2. Row 1 of every sheet: all cells bold (openpyxl Font.bold=True). freeze_panes="A2" on every sheet.
 
@@ -185,7 +185,7 @@ Run from the project root. Verify deliverables match the spec.
 
 4. data/quant_index.json: valid UTF-8, indent=2 pretty-printed, ends with newline. Top-level keys: generated_at, count, resources.
 
-5. INDEX_SUMMARY.md: has one subsection per source (6 total: Seeds_Quantscience_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs). Each subsection names the row count. Blocked sources (SSRN) flagged with ⚠. Known gaps section enumerates SSRN block, paperswithcode dead, AA/TS Cloudflare, unbackfilled Tier 1 stars.
+5. INDEX_SUMMARY.md: has one subsection per source (6 total: Seeds_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs). Each subsection names the row count. Blocked sources (SSRN) flagged with ⚠. Known gaps section enumerates SSRN block, paperswithcode dead, AA/TS Cloudflare, unbackfilled Tier 1 stars.
 
 6. index_builder.py: CONFIG block near top contains RUN dict with keys seeds, tier1_awesome, tier2_arxiv, tier3_institutional, tier4_ssrn, tier5_blogs — all settable without code edits.
 
@@ -221,7 +221,7 @@ Run from the project root. When a resource appears in multiple sources the build
 
 2. For each multi-source row, verify the canonical_url appears in only ONE row of data/quant_index.json (no dup). If there are two rows with the same canonical_url, dedup is broken.
 
-3. For the row with title "OpenBBTerminal" (or similar slug): sources should include BOTH "quantscience_ig" AND "awesome-quant". mention_count ≥ 72 (seed xlsx had 72+ post references). confidence should be "high". If two separate rows exist (one per source), the slug-dedup pass failed — the builder merges repos with matching (slug, owner) as of this commit.
+3. For the row with title "OpenBBTerminal" (or similar slug): sources should include BOTH "seeds_ig" AND "awesome-quant". mention_count ≥ 72 (the seed pass had 72+ post references). confidence should be "high". If two separate rows exist (one per source), the slug-dedup pass failed — the builder merges repos with matching (slug, owner) as of this commit.
 
 4. Spot check: for 5 multi-source rows, confirm the title is non-empty, canonical_url is the lowercased github.com/owner/repo form, and confidence is "high" or "medium" (never "low" for a cross-validated resource).
 

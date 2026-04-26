@@ -117,12 +117,12 @@ for fid, text in texts.items():
     if len(text.strip()) < 20:
         continue
 
-    # Get caption snippet - first meaningful lines after @quantscience_
+    # Get caption snippet - first meaningful lines after the source-account handle
     lines = [l.strip() for l in text.split('\n') if l.strip()]
     caption = ''
     capture = False
     for line in lines:
-        if 'quantscience' in line.lower():
+        if line.startswith('@'):
             capture = True
             continue
         if capture and line and not line.startswith('@'):
@@ -200,7 +200,7 @@ for fid, text in texts.items():
         # Filter out known non-title lines
         for pl in pre_lines:
             pl_clean = pl.strip()
-            if any(skip in pl_clean.lower() for skip in ['quantscience', '@', 'page pdf', 'here', 'thread', 'breaking', 'overview', 'need to know']):
+            if any(skip in pl_clean.lower() for skip in ['@', 'page pdf', 'here', 'thread', 'breaking', 'overview', 'need to know']):
                 continue
             if len(pl_clean) > 20 and len(pl_clean) < 200:
                 # Check if it looks like a title (mostly title case or has capital letters)
@@ -237,7 +237,7 @@ for fid, text in texts.items():
                 for j in range(i+1, min(i+5, len(lines))):
                     candidate = lines[j].strip()
                     if len(candidate) > 20 and len(candidate) < 200:
-                        if not any(skip in candidate.lower() for skip in ['quantscience', '@', 'here', 'thread', 'breaking']):
+                        if not any(skip in candidate.lower() for skip in ['@', 'here', 'thread', 'breaking']):
                             key = f'title-{candidate.lower()[:80]}'
                             if key not in paper_by_key:
                                 paper_by_key[key]['source_ids'].append(fid)
@@ -300,7 +300,7 @@ for fid, text in texts.items():
         parts = repo.split('/')
         if len(parts) == 2 and len(parts[0]) > 2 and len(parts[1]) > 2:
             # Filter out common false positives
-            if any(fp in repo.lower() for fp in ['http', 'www', '.com', 'quantscience', 'instagram']):
+            if any(fp in repo.lower() for fp in ['http', 'www', '.com', 'instagram']):
                 continue
             # Filter date-like patterns
             if re.match(r'\d+/\d+', repo):

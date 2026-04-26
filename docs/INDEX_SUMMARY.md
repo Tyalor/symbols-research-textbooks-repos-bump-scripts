@@ -1,16 +1,16 @@
 # Quant Resource Index — Summary
 
-**Generated:** 2026-04-23T02:01:51Z
+**Generated:** 2026-04-26T23:52:41Z
 **Unique resources:** 2783
 **By type:** paper=1121, whitepaper=642, repo=630, blog_post=387, textbook=3
 **By confidence:** high=1146, medium=1634, low=3
 
 ## Sources
 
-### Seeds_Quantscience_IG
+### Seeds_IG
 **Rows:** 60  
 **Date range:** 2006–2026  
-Loaded from quantscience_findings.xlsx (22 papers + 39 repos). URLs re-verified via GitHub API; search fallback requires owner match to avoid swapping in unrelated repos (the bvschaik/julius bug was caught here).
+Cached-only seed rows carried over from a prior curation pass (22 papers + 39 repos). No live fetcher — refresh by editing data/quant_index.json directly.
 ### Awesome_Lists
 **Rows:** 612  
 **Date range:** n/a  

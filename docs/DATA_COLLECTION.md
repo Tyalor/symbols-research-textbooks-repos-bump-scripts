@@ -72,7 +72,7 @@ con.execute("""
 ```
 
 **Answers questions like:**
-- "Highest-starred repos with source including quantscience_ig"
+- "Highest-starred repos with source including seeds_ig"
 - "Arxiv papers from 2025 in q-fin.PM with ≥100 citations"
 - "Resources mentioned across ≥3 sources"
 - "Institutional whitepapers from AQR published 2024+"

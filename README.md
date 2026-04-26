@@ -1,6 +1,6 @@
 # Quant Research Index
 
-Quant finance resource index — papers, repos, whitepapers, blogs — aggregated from arxiv, awesome-lists, institutional research, and the **@quantscience_** Instagram curation pass.
+Quant finance resource index — papers, repos, whitepapers, blogs — aggregated from arxiv, awesome-lists, institutional research, and a one-time seed-curation pass.
 
 ## What's in here
 
@@ -16,8 +16,8 @@ Quant finance resource index — papers, repos, whitepapers, blogs — aggregate
 | `docs/DOMAIN_EXPANSION.md` | Growing the index 10× via OpenAlex + citation graph + new modalities |
 | `docs/EQUITY_REPORTS_PLAN.md` | Plan for collecting SEC filings + earnings/IR content |
 | `docs/TEXTBOOKS.md` | Curated canonical quant textbooks not in the index |
-| `docs/EXTRACTION_NOTES.md` | Notes on the original HAR extraction pass |
-| `legacy/` | Previous-session HAR tooling + `quantscience_findings.xlsx` (seed data now fully absorbed into `data/quant_index.json` with source=`quantscience_ig`) |
+| `docs/EXTRACTION_NOTES.md` | Notes on the seed-curation HAR extraction pass |
+| `legacy/` | Generic IG-HAR extraction toolkit (`extract_images.py`, `extraction.py`) — usable on any Instagram HAR capture |
 
 ## Running the pipeline
 
@@ -38,7 +38,7 @@ Flip flags in the `RUN` dict at the top of `index_builder.py` to enable/disable 
 
 | Tier | Source | Current row count |
 |---|---|---:|
-| Seeds | `legacy/quantscience_findings.xlsx` (absorbed into main index) | 60 |
+| Seeds | Cached one-time IG-HAR curation pass (rows live in JSON, no live fetcher) | 60 |
 | Tier 1 | `awesome-quant` + `firmai/financial-machine-learning` | 608 |
 | Tier 2 | arxiv q-fin (TR/PM/ST/CP/RM/MF/PR) + Semantic Scholar citations | 1096 |
 | Tier 3 | AQR, Man Institute, Fed FEDS Notes, BIS (via RePEc) | 246 |
@@ -53,26 +53,26 @@ Details on gaps (paperswithcode dead, SSRN blocked, Alpha Architect/Two Sigma dr
 pip install requests openpyxl feedparser beautifulsoup4 lxml
 ```
 
-## Legacy pipeline (seed xlsx regeneration only)
+## Legacy IG-HAR toolkit (optional, generic)
 
-Only relevant if you're re-extracting from a fresh Instagram HAR capture:
+If you ever want to seed a future curation pass from a different Instagram account, point these at a fresh HAR:
 
 ```bash
 brew install tesseract
 cd legacy/
-python3 extract_images.py          # 1. HAR → image dedupe
+HAR_PATH=/path/to/instagram.har OUT_DIR=/path/to/work python3 extract_images.py   # 1. HAR → image dedupe
 # 2. OCR:
-ls igimgs/*.jpg | xargs -P 8 -I{} sh -c \
+ls "$OUT_DIR"/igimgs/*.jpg | xargs -P 8 -I{} sh -c \
   'f="{}"; b=$(basename "$f" .jpg); \
    [ -f "ocr_txt/$b.txt" ] || tesseract "$f" "ocr_txt/$b" -l eng --psm 6 --oem 1'
 python3 extraction.py              # 3. regex + known-entity extraction
-python3 build_excel.py             # 4. curated xlsx
-# Resulting xlsx stays in legacy/; index_builder.py reads it from there.
 ```
 
-## Most-mentioned resources (from seed curator)
+Output is a free-form set of paper/repo candidates; manual curation into the index is up to you.
 
-| Repo | Stars | Curator posts |
+## Most-mentioned resources (from seed pass)
+
+| Repo | Stars | Seed-pass posts |
 |---|---:|---:|
 | OpenBB-finance/OpenBBTerminal | 66K | 72+ |
 | jpmorganchase/python-training | 13K | 22+ |

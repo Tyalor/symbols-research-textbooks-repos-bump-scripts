@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Extract post images from Instagram HAR file."""
+"""Extract post images from an Instagram HAR file.
+
+Usage: set HAR_PATH and OUT_DIR via env vars or edit defaults.
+Generic IG-HAR helper — not tied to any specific account.
+"""
 import json, base64, os, hashlib, sys
 
-har_path = '/Users/ty/Downloads/www.instagram.com.har'
-out_dir = '/Users/ty/Downloads/quantscience_output/igimgs'
+har_path = os.environ.get('HAR_PATH', '/Users/ty/Downloads/instagram.har')
+out_dir = os.environ.get('OUT_DIR', '/Users/ty/Downloads/ig_extract/igimgs')
 os.makedirs(out_dir, exist_ok=True)
 
 print("Loading HAR file...")
