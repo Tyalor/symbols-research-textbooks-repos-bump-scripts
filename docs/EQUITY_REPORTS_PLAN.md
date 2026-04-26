@@ -239,7 +239,7 @@ UNIVERSE = "sp100"              # start small
 LOOKBACK_YEARS = 5
 FILING_TYPES = ["10-K", "10-Q", "8-K"]
 STORE_PDFS = False              # metadata only; add PDF grab as Phase 4
-USER_AGENT = "Symbols Terminal research indexer (tyalorkny@gmail.com)"
+USER_AGENT = "Symbols Terminal research indexer (contact@example.com)"
 ```
 
 Ship this, validate output against EDGAR manually for a few known tickers (AAPL, MSFT, JPM), then expand to S&P 500.

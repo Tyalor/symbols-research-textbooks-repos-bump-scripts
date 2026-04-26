@@ -1,4 +1,4 @@
-# symbols-research-textbooks-repos-bump-scripts
+# Quant Research Index
 
 Quant finance resource index — papers, repos, whitepapers, blogs — aggregated from arxiv, awesome-lists, institutional research, and the **@quantscience_** Instagram curation pass.
 

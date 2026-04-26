@@ -1,6 +1,6 @@
 # Audit Prompts — Fresh-Chat Verification
 
-Standalone prompts to paste into a new Claude Code session. Each is self-contained; none reference prior-conversation context. Working directory assumed: `symbols-research-textbooks-repos-bump-scripts`.
+Standalone prompts to paste into a new Claude Code session. Each is self-contained; none reference prior-conversation context. Run from the project root.
 
 **Layout a fresh auditor should expect:**
 - `index_builder.py` at repo **root**
@@ -25,7 +25,7 @@ If any audit turns up something, paste its output back into the build session (n
 ## Prompt 1 — Schema + integrity (no network)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Build session already wrote data/quant_index.json and data/quant_index.xlsx. Do not modify files. Do not scrape. Verify:
+Run from the project root. Build session already wrote data/quant_index.json and data/quant_index.xlsx. Do not modify files. Do not scrape. Verify:
 
 1. data/quant_index.json parses cleanly. Every resource has: resource_id, type ∈ {paper,repo,textbook,whitepaper,blog_post}, title, sources (non-empty list of strings), canonical_url (may be empty only for URL-less seeds), confidence ∈ {high,medium,low}, mention_count (int ≥ 1), retrieved_at (ISO8601 with Z suffix or +offset).
 
@@ -47,7 +47,7 @@ Report: pass/fail per check, counts, any violations. Under 300 words.
 ## Prompt 2 — Seed re-verification sanity (~40 GitHub API calls)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. quantscience_findings.xlsx has 22 papers + 39 repos (61 total). These should all be present in data/quant_index.json tagged with "quantscience_ig" in the sources array. After dedup against awesome-lists a few seeds share rows with awesome-list sources; expect ~60 unique rows for the quantscience_ig tag.
+Run from the project root. quantscience_findings.xlsx has 22 papers + 39 repos (61 total). These should all be present in data/quant_index.json tagged with "quantscience_ig" in the sources array. After dedup against awesome-lists a few seeds share rows with awesome-list sources; expect ~60 unique rows for the quantscience_ig tag.
 
 1. Every repo name from the Repos sheet should have a matching title (case-insensitive) in data/quant_index.json. List any missing.
 
@@ -65,7 +65,7 @@ Report under 200 words.
 ## Prompt 3 — Awesome-list noise audit (no network)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 1 scraped README.md of wilsonfreitas/awesome-quant (emitted under source tag "awesome-quant", ~438 rows) and firmai/financial-machine-learning (emitted under source tag "financial-ml", ~191 rows). NOTE: the tag is "financial-ml", not "financial-machine-learning" — expect zero rows for the longer name. Walk data/quant_index.json:
+Run from the project root. Tier 1 scraped README.md of wilsonfreitas/awesome-quant (emitted under source tag "awesome-quant", ~438 rows) and firmai/financial-machine-learning (emitted under source tag "financial-ml", ~191 rows). NOTE: the tag is "financial-ml", not "financial-machine-learning" — expect zero rows for the longer name. Walk data/quant_index.json:
 
 1. Any row where type="repo" but canonical_url does not match https://github.com/[a-z0-9_.-]+/[a-z0-9_.-]+ (lowercased; leading `-` is legal for GitHub repos). Count violations. The known-legit exceptions `rastaman4e/-1` and `jettbrains/-l-` have leading-dash repo names; don't flag those.
 
@@ -87,7 +87,7 @@ Report. Under 300 words.
 ## Prompt 4 — ArXiv Tier 2 completeness + citations
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 2 scraped 7 q-fin categories (TR, PM, ST, CP, RM, MF, PR), 200 most-recent each, then backfilled Semantic Scholar citation counts for the top 50 per category (~350 S2 calls).
+Run from the project root. Tier 2 scraped 7 q-fin categories (TR, PM, ST, CP, RM, MF, PR), 200 most-recent each, then backfilled Semantic Scholar citation counts for the top 50 per category (~350 S2 calls).
 
 1. For each of arxiv/q-fin.TR, arxiv/q-fin.PM, arxiv/q-fin.ST, arxiv/q-fin.CP, arxiv/q-fin.RM, arxiv/q-fin.MF, arxiv/q-fin.PR — count rows. Each should be 200 (±5 for intra-run dedup). Flag anything under 180.
 
@@ -109,7 +109,7 @@ Report per-category counts and any anomalies. Under 300 words.
 ## Prompt 5 — Institutional (Tier 3) signal audit
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 3 sources after patching:
+Run from the project root. Tier 3 sources after patching:
 - aqr (~11 rows)
 - man-institute (~6 rows)
 - fed-feds-notes (~30 rows)
@@ -135,7 +135,7 @@ Report under 300 words. If BIS has >10% junk titles, suggest adding filters to t
 ## Prompt 6 — SSRN (Tier 4) confirmed-zero check (no network)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 4 (SSRN top-ten) is expected to have ZERO rows because SSRN's topTenResults.cfm pages return Cloudflare 403 to all unauth scrapers. This is documented in INDEX_SUMMARY.md.
+Run from the project root. Tier 4 (SSRN top-ten) is expected to have ZERO rows because SSRN's topTenResults.cfm pages return Cloudflare 403 to all unauth scrapers. This is documented in INDEX_SUMMARY.md.
 
 1. Count rows with source tag starting "ssrn-" in data/quant_index.json. Expected: 0. If >0, the build session accidentally kept stale data — investigate.
 
@@ -155,7 +155,7 @@ Report under 150 words.
 ## Prompt 7 — Blogs (Tier 5) noise audit
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Tier 5 scraped index pages of QuantStart (~286 rows), Robot Wealth (~17 rows), Hudson & Thames (~85 rows). The classifier filters out path fragments: /topic/, /category/, /tag/, /author/, /page/, /feed, /archive, /ebook.
+Run from the project root. Tier 5 scraped index pages of QuantStart (~286 rows), Robot Wealth (~17 rows), Hudson & Thames (~85 rows). The classifier filters out path fragments: /topic/, /category/, /tag/, /author/, /page/, /feed, /archive, /ebook.
 
 1. Count rows per source. Flag quantstart <200 or >400 (means selector broke); robot-wealth <10 or >50; hudson-thames <30 or >150.
 
@@ -175,7 +175,7 @@ Report under 300 words. If any source has >15% noise, suggest adding to BLOG_NOI
 ## Prompt 8 — Deliverables cross-check (offline)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. Verify deliverables match the spec.
+Run from the project root. Verify deliverables match the spec.
 
 1. data/quant_index.xlsx sheets (exact names, exact order): All_Deduped, Seeds_Quantscience_IG, Awesome_Lists, ArXiv, Institutional, SSRN_TopTen, Blogs. Flag missing or renamed.
 
@@ -215,7 +215,7 @@ Report under 300 words.
 ## Prompt 9 — Cross-source merge correctness (no network)
 
 ```
-Working dir: symbols-research-textbooks-repos-bump-scripts. When a resource appears in multiple sources the build session's merge logic (index_builder.py:merge_resources) is supposed to union sources, keep the highest confidence, sum mention_count, and take the longer title/summary.
+Run from the project root. When a resource appears in multiple sources the build session's merge logic (index_builder.py:merge_resources) is supposed to union sources, keep the highest confidence, sum mention_count, and take the longer title/summary.
 
 1. Find every row where sources has length ≥ 2. Report the count. Flag only if 0 (dedup broken entirely) or >500 (dedup too aggressive, merging unrelated rows). Expect multi-hundreds — arxiv papers cross-listed across q-fin categories produce most of these, plus seed × awesome-list overlap on popular repos.
 
