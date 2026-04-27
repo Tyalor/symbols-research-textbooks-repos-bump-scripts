@@ -1,9 +1,9 @@
 # Quant Resource Index — Summary
 
-**Generated:** 2026-04-26T23:58:30Z
-**Unique resources:** 2783
-**By type:** paper=1121, whitepaper=642, repo=630, blog_post=387, textbook=3
-**By confidence:** high=1146, medium=1634, low=3
+**Generated:** 2026-04-27T00:39:01Z
+**Unique resources:** 2870
+**By type:** paper=1186, repo=648, whitepaper=642, blog_post=391, textbook=3
+**By confidence:** high=1146, medium=1721, low=3
 
 ## Sources
 
@@ -12,9 +12,9 @@
 **Date range:** 2006–2026  
 Cached-only seed rows carried over from a prior curation pass (22 papers + 39 repos). No live fetcher — refresh by editing data/quant_index.json directly.
 ### Awesome_Lists
-**Rows:** 612  
+**Rows:** 753  
 **Date range:** n/a  
-Parsed README.md of wilsonfreitas/awesome-quant + firmai/financial-machine-learning. Badges, image assets, and non-quant links filtered via classify_url. paperswithcode skipped: site redirects to huggingface.co/papers (dead).
+Parsed README.md of wilsonfreitas/awesome-quant + firmai/financial-machine-learning + cbailes/awesome-deep-trading. Badges, image assets, and non-quant links filtered via classify_url. paperswithcode skipped: site redirects to huggingface.co/papers (dead).
 ### ArXiv
 **Rows:** 1096  
 **Date range:** 2024-09-10–2026-04-21  

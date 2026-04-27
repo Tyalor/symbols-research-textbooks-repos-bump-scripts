@@ -1,13 +1,13 @@
 # Quant Research Index
 
-Quant finance resource index — papers, repos, whitepapers, blogs — aggregated from arxiv, awesome-lists, institutional research, and a one-time seed-curation pass.
+Quant finance resource index — papers, repos, whitepapers, blogs, textbooks — aggregated from arxiv, awesome-lists, institutional research, and a one-time seed-curation pass.
 
 ## What's in here
 
 | Path | Purpose |
 |---|---|
 | `index_builder.py` | Pipeline: 5-tier scraper, dedupe, writers |
-| `data/quant_index.json` | **2783 unique resources** — source of truth |
+| `data/quant_index.json` | **2870 unique resources** — source of truth |
 | `data/quant_index.xlsx` | Same data, Excel view with 7 sheets (All_Deduped + per-source) |
 | `docs/INDEX_SUMMARY.md` | Per-source row counts, date ranges, known gaps |
 | `docs/AUDIT_PROMPTS.md` | 9 fresh-chat verification prompts |
@@ -16,6 +16,7 @@ Quant finance resource index — papers, repos, whitepapers, blogs — aggregate
 | `docs/DOMAIN_EXPANSION.md` | Growing the index 10× via OpenAlex + citation graph + new modalities |
 | `docs/EQUITY_REPORTS_PLAN.md` | Plan for collecting SEC filings + earnings/IR content |
 | `docs/TEXTBOOKS.md` | Curated canonical quant textbooks not in the index |
+| `docs/FINANCE_BOOK_REPOS.md` | GitHub repos that bundle finance/trading book PDFs + retrieval (sparse-checkout) instructions |
 | `docs/EXTRACTION_NOTES.md` | Notes on the seed-curation HAR extraction pass |
 | `legacy/` | Generic IG-HAR extraction toolkit (`extract_images.py`, `extraction.py`) — usable on any Instagram HAR capture |
 
@@ -39,7 +40,7 @@ Flip flags in the `RUN` dict at the top of `index_builder.py` to enable/disable 
 | Tier | Source | Current row count |
 |---|---|---:|
 | Seeds | Cached one-time IG-HAR curation pass (rows live in JSON, no live fetcher) | 60 |
-| Tier 1 | `awesome-quant` + `firmai/financial-machine-learning` | 608 |
+| Tier 1 | `awesome-quant` + `firmai/financial-machine-learning` + `cbailes/awesome-deep-trading` | 695 |
 | Tier 2 | arxiv q-fin (TR/PM/ST/CP/RM/MF/PR) + Semantic Scholar citations | 1096 |
 | Tier 3 | AQR, Man Institute, Fed FEDS Notes, BIS (via RePEc) | 246 |
 | Tier 4 | SSRN top-ten | 0 (Cloudflare-blocked; documented) |

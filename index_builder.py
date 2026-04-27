@@ -2,7 +2,7 @@
 Quant resource index builder.
 
 Tiers:
-  Tier 1: awesome-lists (wilsonfreitas/awesome-quant, firmai/financial-machine-learning, paperswithcode finance)
+  Tier 1: awesome-lists (wilsonfreitas/awesome-quant, firmai/financial-machine-learning, cbailes/awesome-deep-trading, paperswithcode finance)
   Tier 2: arxiv q-fin
   Tier 3: institutional research (AQR, Man, Two Sigma, Alpha Architect, BIS, Fed FEDS)
   Tier 4: SSRN top-10 download lists
@@ -417,6 +417,14 @@ def classify_url(url: str) -> str | None:
         return "blog_post"
     if any(h in u for h in ("amazon.com/", "oreilly.com", "manning.com", "springer.com/book", "wiley.com/en-us/")):
         return "textbook"
+    # academic publishers / journal hosts — used heavily by awesome-deep-trading
+    if any(h in u for h in (
+        "sciencedirect.com/", "link.springer.com/", "ieeexplore.ieee.org/",
+        "researchgate.net/publication", "mdpi.com/", "hindawi.com/journals/",
+        "iopscience.iop.org/", "tandfonline.com/doi", "aaai.org/", "openreview.net/",
+        "papers.ssrn.com", "deepai.org/publication", "doi.org/",
+    )):
+        return "paper"
     return None
 
 
@@ -424,6 +432,7 @@ def run_tier1_awesome() -> list[Resource]:
     sources = [
         ("awesome-quant", "wilsonfreitas/awesome-quant", "https://raw.githubusercontent.com/wilsonfreitas/awesome-quant/master/README.md"),
         ("financial-ml", "firmai/financial-machine-learning", "https://raw.githubusercontent.com/firmai/financial-machine-learning/master/README.md"),
+        ("awesome-deep-trading", "cbailes/awesome-deep-trading", "https://raw.githubusercontent.com/cbailes/awesome-deep-trading/master/README.md"),
     ]
     rows: list[Resource] = []
     for tag, repo, raw in sources:
@@ -1007,7 +1016,7 @@ def write_summary(per_source: dict[str, list[Resource]], all_deduped: dict[str, 
     sections: list[str] = []
     source_notes = {
         "Seeds_IG": "Cached-only seed rows carried over from a prior curation pass (22 papers + 39 repos). No live fetcher — refresh by editing data/quant_index.json directly.",
-        "Awesome_Lists": "Parsed README.md of wilsonfreitas/awesome-quant + firmai/financial-machine-learning. Badges, image assets, and non-quant links filtered via classify_url. paperswithcode skipped: site redirects to huggingface.co/papers (dead).",
+        "Awesome_Lists": "Parsed README.md of wilsonfreitas/awesome-quant + firmai/financial-machine-learning + cbailes/awesome-deep-trading. Badges, image assets, and non-quant links filtered via classify_url. paperswithcode skipped: site redirects to huggingface.co/papers (dead).",
         "ArXiv": "Fetched 200 most-recent per category from export.arxiv.org Atom API (3s pacing). Semantic Scholar citation counts backfilled for top 50 per category (350 total, ~19min at 3.2s/req unauth).",
         "Institutional": "Browser UA used to avoid Cloudflare 403s. BIS pulled via RePEc mirror (bis.org/publ/work.htm is 404 as of this run). Alpha Architect and Two Sigma both return 403 or JS-hydrated placeholders — dropped.",
         "SSRN_TopTen": "All 5 top-ten pages return Cloudflare 403 to unauth scrapers. Not fixable without a browser session or login. Zero rows — noted, not retried.",
@@ -1069,7 +1078,7 @@ def cached_rows_for(existing: dict[str, Resource], source_prefixes: tuple[str, .
 
 TIER_SOURCES = {
     "Seeds_IG": ("quantscience_ig",),
-    "Awesome_Lists": ("awesome-quant", "financial-ml", "paperswithcode"),
+    "Awesome_Lists": ("awesome-quant", "financial-ml", "awesome-deep-trading", "paperswithcode"),
     "ArXiv": ("arxiv/",),
     "Institutional": ("aqr", "man-institute", "two-sigma", "alpha-architect", "bis-wp", "fed-feds-notes"),
     "SSRN_TopTen": ("ssrn-",),
